@@ -23,9 +23,7 @@ class StudentNavigationPage extends BasePage {
         this.sidebarWebinars = page.getByRole('link', { name: ' Webinars' }).first();
         this.sidebarNewsletter = page.getByRole('link', { name: ' Newsletter' }).first();
         this.sidebarLiveCourseCalendar = page.getByRole('link', { name: ' Live Course Calendar' }).first();
-        this.sidebarMyLiveSchedule = page.getByRole('link', { name: 'My Live Schedule' }).or(
-            page.getByLabel('Live Schedule')
-        );
+        this.sidebarMyLiveSchedule = page.getByRole('link', { name: ' My Live Schedule' }).first();
         this.sidebarContactSupport = page.getByRole('link', { name: ' Contact Support' }).first();
         this.sidebarSendIdeas = page.getByRole('link', { name: ' Send Ideas' }).first();
     }

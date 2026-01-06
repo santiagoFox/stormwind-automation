@@ -7,17 +7,17 @@ test.describe('Student - Navigation Tests', () => {
 
     test('should navigate to My Classroom', async ({ studentNavigation, studentPage }) => {
         await studentNavigation.navigateToMyClassroom();
-        expect(studentPage.url()).toContain('my-classroom');
+        expect(studentPage.url()).toContain('my_classroom');
     });
 
     test('should navigate to Courses', async ({ studentNavigation, studentPage }) => {
         await studentNavigation.navigateToCourses();
-        expect(studentPage.url()).toContain('courses');
+        expect(studentPage.url()).toContain('topics');
     });
 
     test('should navigate to Learning Paths', async ({ studentNavigation, studentPage }) => {
         await studentNavigation.navigateToLearningPaths();
-        expect(studentPage.url()).toContain('learning-path');
+        expect(studentPage.url()).toContain('learningpaths');
     });
 
     test('should navigate to Skills Assessments', async ({ studentNavigation, studentPage }) => {

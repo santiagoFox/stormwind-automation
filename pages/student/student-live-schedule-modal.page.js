@@ -8,20 +8,17 @@ class StudentLiveScheduleModalPage extends BasePage {
     constructor(page) {
         super(page);
 
-        // Modal elements
-        this.modal = page.locator('[role="dialog"], .modal, [class*="modal"]');
-        this.modalTitle = page.getByRole('heading', { name: 'Live Schedule' });
-        this.closeButton = page.locator('[role="dialog"] button, .modal button').filter({ has: page.locator('svg, [class*="close"]') }).first();
-        this.closeButtonX = page.getByRole('button', { name: /close/i }).or(page.locator('.modal-close, [class*="close"]'));
+        // Modal elements - specific to Live Schedule modal
+        this.modal = page.locator('#liveScheduleModal');
+        this.modalTitle = this.modal.locator('.modal-title');
+        this.closeButton = this.modal.locator('a[data-dismiss="modal"]');
 
         // Modal content
-        this.noSessionsMessage = page.getByText('You have no upcoming live sessions scheduled.');
-        this.sessionsList = page.locator('.sessions-list, [class*="session"]');
+        this.noSessionsMessage = this.modal.getByText(/no upcoming live sessions/i);
+        this.sessionsList = this.modal.locator('.modal-body');
 
         // Sidebar link to open modal
-        this.myLiveScheduleLink = page.getByRole('link', { name: 'My Live Schedule' }).or(
-            page.getByLabel('Live Schedule')
-        );
+        this.myLiveScheduleLink = page.getByRole('link', { name: ' My Live Schedule' }).first();
     }
 
     async openModal() {
@@ -30,12 +27,13 @@ class StudentLiveScheduleModalPage extends BasePage {
     }
 
     async closeModal() {
-        // Try clicking X button or any close mechanism
-        const closeBtn = this.page.locator('[role="dialog"] button').first();
-        if (await closeBtn.isVisible()) {
-            await closeBtn.click();
+        // Try close button first, then Escape key as fallback
+        if (await this.closeButton.isVisible()) {
+            await this.closeButton.click();
+        } else {
+            await this.page.keyboard.press('Escape');
         }
-        await this.modal.waitFor({ state: 'hidden' });
+        await this.modal.waitFor({ state: 'hidden', timeout: 5000 });
     }
 
     async isModalOpen() {

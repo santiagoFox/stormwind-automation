@@ -15,7 +15,7 @@ class StudentWebinarsPage extends BasePage {
         this.footer = new StudentFooterPage(page);
 
         // Page header
-        this.pageTitle = page.getByRole('heading', { name: 'Explore upcoming Stormwind webinars.' });
+        this.pageTitle = page.getByText(/Explore upcoming Stormwind webinars/i).first();
 
         // Search
         this.searchInput = page.getByPlaceholder('Search for a webinar');

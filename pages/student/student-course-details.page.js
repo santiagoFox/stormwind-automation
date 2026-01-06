@@ -40,7 +40,7 @@ class StudentCourseDetailsPage extends BasePage {
 
         // Module 1: Getting Started with Copilot
         this.module1Heading = page.getByRole('heading', { name: 'Getting Started with Copilot' });
-        this.lesson1_1 = page.getByText('Tools, Models & Copilot Setup');
+        this.lesson1_1 = page.getByRole('link', { name: 'Tools, Models & Copilot Setup' });
         this.lesson1_2 = page.getByText('Vibe Coding with Bolt');
         this.lesson1_3 = page.getByText('Copilot Basics');
         this.lesson1_4 = page.getByText('Copilot Edit & Agent Modes');

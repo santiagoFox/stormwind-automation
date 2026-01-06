@@ -22,8 +22,8 @@ class StudentLiveCourseCalendarPage extends BasePage {
         // Calendar header
         this.monthYearHeading = page.locator('text=/\\w+ \\d{4}/'); // Matches "December 2025"
 
-        // Calendar grid
-        this.calendarGrid = page.locator('table, [class*="calendar"]');
+        // Calendar grid - use day headers as reliable indicator
+        this.calendarGrid = page.getByText('SUN').first();
         this.dayHeaders = page.locator('th, [class*="day-header"]');
         this.calendarCells = page.locator('td, [class*="calendar-cell"]');
         this.currentDayCell = page.locator('[class*="today"], [class*="current"], td.fc-day-today');

@@ -15,11 +15,11 @@ class StudentSendIdeasPage extends BasePage {
 
         // Main content
         this.mainHeading = page.getByRole('heading', { name: /Hi there/i });
-        this.subtitle = page.getByText('This is the place where you can share your feedback about StormWind.');
+        this.subtitle = page.locator('h2').filter({ hasText: /share your feedback/i });
 
         // Search and create
         this.searchInput = page.getByPlaceholder('Search...');
-        this.createPostButton = page.getByRole('button', { name: 'Create a Post' });
+        this.createPostButton = page.getByRole('button', { name: /Create a Post/i });
 
         // Sort/Filter section
         this.trendSortBy = page.getByText('Trend');
@@ -60,9 +60,9 @@ class StudentSendIdeasPage extends BasePage {
         this.updatesNav = newPage.getByRole('link', { name: 'Updates' });
         this.roadmapNav = newPage.getByRole('link', { name: 'Roadmap' });
         this.mainHeading = newPage.getByRole('heading', { name: /Hi there/i });
-        this.subtitle = newPage.getByText('This is the place where you can share your feedback about StormWind.');
+        this.subtitle = newPage.locator('h2').filter({ hasText: /share your feedback/i });
         this.searchInput = newPage.getByPlaceholder('Search...');
-        this.createPostButton = newPage.getByRole('button', { name: 'Create a Post' });
+        this.createPostButton = newPage.getByRole('button', { name: /Create a Post/i });
         this.trendSortBy = newPage.getByText('Trend');
         this.allStatusDropdown = newPage.getByText('All').first();
         this.allCategoriesFilter = newPage.getByText('All Categories');

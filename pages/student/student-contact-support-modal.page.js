@@ -8,15 +8,15 @@ class StudentContactSupportModalPage extends BasePage {
     constructor(page) {
         super(page);
 
-        // Modal elements
-        this.modal = page.locator('[role="dialog"], .modal, [class*="modal"]');
-        this.modalTitle = page.getByRole('heading', { name: 'Contact Support' });
-        this.modalSubtitle = page.getByText('Hi, how can we help you?');
-        this.closeButton = page.locator('[role="dialog"] button').filter({ has: page.locator('svg, [class*="close"]') }).first();
+        // Modal elements - jQuery UI dialog for Contact Support
+        this.modal = page.locator('.ui-dialog').filter({ hasText: 'Contact Support' });
+        this.modalTitle = this.modal.locator('.ui-dialog-title');
+        this.modalSubtitle = this.modal.locator('label').filter({ hasText: 'Hi, how can we help you?' });
+        this.closeButton = this.modal.locator('button.ui-dialog-titlebar-close');
 
         // Form elements
-        this.messageTextbox = page.getByRole('textbox', { name: 'Hi, how can we help you?' });
-        this.requestButton = page.locator('div').filter({ hasText: /^Request$/ }).first();
+        this.messageTextbox = this.modal.getByRole('textbox');
+        this.requestButton = this.modal.locator('button', { hasText: 'Request' });
 
         // Sidebar link to open modal
         this.contactSupportLink = page.getByRole('link', { name: ' Contact Support' }).first();
@@ -28,9 +28,8 @@ class StudentContactSupportModalPage extends BasePage {
     }
 
     async closeModal() {
-        const closeBtn = this.page.locator('[role="dialog"] button').first();
-        if (await closeBtn.isVisible()) {
-            await closeBtn.click();
+        if (await this.closeButton.isVisible()) {
+            await this.closeButton.click();
         }
         await this.modal.waitFor({ state: 'hidden' });
     }
