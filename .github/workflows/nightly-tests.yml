@@ -38,19 +38,19 @@ jobs:
         path: playwright-report/
         retention-days: 30
 
-    - name: Notify Slack on failure
-      if: failure()
+    - name: Notify Slack
+      if: always()
       uses: slackapi/slack-github-action@v1.25.0
       with:
         payload: |
           {
-            "text": "❌ Nightly Playwright Tests Failed",
+            "text": "${{ job.status == 'success' && '✅' || '❌' }} Nightly Playwright Tests: ${{ job.status }}",
             "blocks": [
               {
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "❌ *Nightly Playwright Tests Failed*\nSome tests may need review (could be flaky tests or wait time issues).\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Run & Download Report>"
+                  "text": "${{ job.status == 'success' && '✅ *Nightly Playwright Tests Passed*' || '❌ *Nightly Playwright Tests Failed*' }}\n<${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Run & Download Report>"
                 }
               }
             ]
