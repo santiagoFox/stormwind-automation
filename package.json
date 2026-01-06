@@ -7,8 +7,8 @@
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
     "test:ui": "playwright test --ui",
-    "test:student": "playwright test tests/student",
-    "test:admin": "playwright test tests/admin",
+    "test:student": "playwright test specs/student",
+    "test:admin": "playwright test specs/admin",
     "report": "playwright show-report"
   },
   "keywords": ["playwright", "testing", "automation", "stormwind"],
