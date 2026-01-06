@@ -1,0 +1,20 @@
+{
+  "name": "stormwind-playwright-project",
+  "version": "1.0.0",
+  "description": "Stormwind Playwright test automation project",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "test:student": "playwright test tests/student",
+    "test:admin": "playwright test tests/admin",
+    "report": "playwright show-report"
+  },
+  "keywords": ["playwright", "testing", "automation", "stormwind"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}
