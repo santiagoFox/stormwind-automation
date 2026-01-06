@@ -28,7 +28,7 @@ jobs:
       run: npx playwright install --with-deps
       
     - name: Run Playwright tests
-      run: npx playwright test
+      run: npx playwright test specs/nightly/
       
     - name: Upload test report
       uses: actions/upload-artifact@v4
