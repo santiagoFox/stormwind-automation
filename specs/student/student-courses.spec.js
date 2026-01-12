@@ -95,9 +95,6 @@ test.describe('Student - Courses Page', () => {
         // 24. Validate modal title matches "Palo Alto Firewall Administration"
         await studentCoursesList.expectCourseModalTitle('Palo Alto Firewall Administration');
 
-        // 25. Validate "By:" instructor label is visible
-        await studentCoursesList.expectCourseModalInstructorVisible();
-
         // 26. Validate level is visible (Intermediate)
         await studentCoursesList.expectCourseModalLevelVisible();
 

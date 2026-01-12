@@ -78,6 +78,7 @@ stormwind_playwright_project/
 │       ├── student-courses.page.js         # Courses tab (topic categories)
 │       ├── student-courses-list.page.js    # Courses list page (subcategories/filters)
 │       ├── student-course-details.page.js  # Individual course details page
+│       ├── student-course-details-supplements.page.js # Course details with supplements
 │       ├── student-learning-paths.page.js  # Learning Paths tab
 │       ├── student-skills-assessments.page.js # Skills Assessments tab
 │       ├── student-leaderboard.page.js     # Leaderboard tab
@@ -98,6 +99,7 @@ stormwind_playwright_project/
 │       ├── student-my-classroom.spec.js
 │       ├── student-courses.spec.js
 │       ├── student-course-details.spec.js
+│       ├── student-course-details-supplements.spec.js
 │       ├── student-learning-paths.spec.js
 │       ├── student-skills-assessments.spec.js
 │       ├── student-leaderboard.spec.js
@@ -107,6 +109,9 @@ stormwind_playwright_project/
 │       ├── student-live-schedule-modal.spec.js
 │       ├── student-contact-support-modal.spec.js
 │       └── student-send-ideas.spec.js
+│   └── nightly/                    # Nightly regression test files
+│       ├── student-courses.spec.js
+│       └── student-course-details-supplements.spec.js
 └── playwright.config.js
 ```
 
@@ -182,6 +187,7 @@ const test = base.extend({
 | `studentCourses` | Courses page object (topic categories) |
 | `studentCoursesList` | Courses list page object (subcategories/filters) |
 | `studentCourseDetails` | Course details page object |
+| `studentCourseDetailsSupplements` | Course details with supplements page object |
 | `studentLearningPaths` | Learning Paths page object |
 | `studentSkillsAssessments` | Skills Assessments page object |
 | `studentLeaderboard` | Leaderboard page object |
@@ -214,11 +220,12 @@ const test = base.extend({
 | My Classroom | `student-my-classroom.page.js` | `student-my-classroom.spec.js` | **Complete** |
 | Courses | `student-courses.page.js`, `student-courses-list.page.js` | `student-courses.spec.js` | **Complete** |
 | Course Details | `student-course-details.page.js` | `student-course-details.spec.js` | **Complete** |
+| Course Details (Supplements) | `student-course-details-supplements.page.js` | `student-course-details-supplements.spec.js` | **Complete** |
 | Learning Paths | `student-learning-paths.page.js` | `student-learning-paths.spec.js` | **Complete** |
 | Skills Assessments | `student-skills-assessments.page.js` | `student-skills-assessments.spec.js` | **Complete** |
 | Leaderboard | `student-leaderboard.page.js` | `student-leaderboard.spec.js` | **Complete** |
 
-### Total Test Count: 39+ automated tests
+### Total Test Count: 40+ automated tests
 
 ---
 
@@ -557,6 +564,42 @@ npx playwright test specs/student/student-learning-paths.spec.js --headed
 
 ---
 
+## Recent Updates (January 11, 2026)
+
+### Course Details with Supplements Page - New Implementation
+- Created `student-course-details-supplements.page.js` for testing Python Foundations course
+- Implemented supplements section locators:
+  - Supplements container: `.course-supplements`
+  - Supplements heading: `.course-supplements h6`
+  - Supplements counter badge: `.supplements-counter`
+  - Class Slides link: scoped `li.list-group-item` filter
+  - Code Samples link: scoped `li.list-group-item` filter
+- Added hero banner locators for Python Foundations course:
+  - Category: "PYTHON"
+  - Title: "Python Foundations"
+  - Level: "Beginner"
+  - Duration: "10 hours"
+  - Instructor: "By: Edem Francois"
+- Added Storm AI Tutor button validation (`#stormAIButton`)
+- Created comprehensive test validating 19 assertions
+
+### Courses List Page - Enhancement
+- Added `clickFirstActualCourse()` method to `student-courses-list.page.js`
+- Method intelligently skips Skills Assessment cards (filters by "By:" instructor text)
+- Returns the clicked course title for assertion purposes
+
+### Configuration Changes
+- Increased global test timeout from 30s to 60s in `playwright.config.js`
+
+### Test Fixes
+- Removed instructor visibility assertion from course modal tests (`specs/student/student-courses.spec.js`, `specs/nightly/student-courses.spec.js`)
+- Renumbered test steps after removal
+
+### Nightly Tests
+- Added `specs/nightly/student-course-details-supplements.spec.js` for nightly regression
+
+---
+
 ## Recent Updates (December 31, 2025)
 
 ### Courses Page - Complete Implementation (3 Stages)
@@ -685,6 +728,6 @@ Results in a framework that is:
 
 **Document Prepared By**: Claude Code (AI-Assisted)
 **Initial Date**: December 16, 2024
-**Last Updated**: December 31, 2025
+**Last Updated**: January 11, 2026
 **Framework Version**: Playwright Latest
 **Project Status**: Active Development

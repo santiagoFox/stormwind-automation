@@ -5,6 +5,7 @@ const StudentMyClassroomPage = require('./student-my-classroom.page');
 const StudentCoursesPage = require('./student-courses.page');
 const StudentCoursesListPage = require('./student-courses-list.page');
 const StudentCourseDetailsPage = require('./student-course-details.page');
+const StudentCourseDetailsSupplementsPage = require('./student-course-details-supplements.page');
 const StudentLearningPathsPage = require('./student-learning-paths.page');
 const StudentSkillsAssessmentsPage = require('./student-skills-assessments.page');
 const StudentLeaderboardPage = require('./student-leaderboard.page');
@@ -25,6 +26,7 @@ module.exports = {
     StudentCoursesPage,
     StudentCoursesListPage,
     StudentCourseDetailsPage,
+    StudentCourseDetailsSupplementsPage,
     StudentLearningPathsPage,
     StudentSkillsAssessmentsPage,
     StudentLeaderboardPage,

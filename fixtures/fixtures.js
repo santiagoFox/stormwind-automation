@@ -23,6 +23,7 @@ const {
     StudentCoursesPage,
     StudentCoursesListPage,
     StudentCourseDetailsPage,
+    StudentCourseDetailsSupplementsPage,
     StudentLearningPathsPage,
     StudentSkillsAssessmentsPage,
     StudentLeaderboardPage,
@@ -118,6 +119,11 @@ const test = base.extend({
     studentCourseDetails: async ({ studentPage }, use) => {
         const courseDetailsPage = new StudentCourseDetailsPage(studentPage);
         await use(courseDetailsPage);
+    },
+
+    studentCourseDetailsSupplements: async ({ studentPage }, use) => {
+        const courseDetailsSupplementsPage = new StudentCourseDetailsSupplementsPage(studentPage);
+        await use(courseDetailsSupplementsPage);
     },
 
     studentLearningPaths: async ({ studentPage }, use) => {

@@ -155,6 +155,43 @@ class StudentCoursesListPage extends BasePage {
     }
 
     /**
+     * Click on the first actual course (not a skills assessment) to open modal
+     * Skills assessments contain "Skills Assessment" text, courses contain "By:" for instructor
+     * @returns {Promise<string>} The title of the course clicked
+     */
+    async clickFirstActualCourse() {
+        // Find course cards that have "By:" text (indicating an instructor, meaning it's a course not a skills assessment)
+        const courseCardsWithInstructor = this.page.locator('a.course-meta__title').filter({
+            has: this.page.locator('xpath=ancestor::div[contains(@class, "course-card")]//span[contains(text(), "By:")]')
+        });
+
+        // If no courses with instructor found, try clicking the first course that's not a skills assessment
+        const allCourseLinks = this.page.locator('a.course-meta__title');
+        const count = await allCourseLinks.count();
+
+        for (let i = 0; i < count; i++) {
+            const link = allCourseLinks.nth(i);
+            const card = link.locator('xpath=ancestor::div[contains(@class, "course-card") or contains(@class, "course-meta")]');
+            const cardText = await card.textContent();
+
+            // Skip skills assessments
+            if (!cardText.includes('Skills Assessment')) {
+                const title = await link.textContent();
+                await link.click();
+                await this.courseModal.waitFor({ state: 'visible', timeout: 10000 });
+                return title.trim();
+            }
+        }
+
+        // Fallback: click first course link anyway
+        const firstLink = allCourseLinks.first();
+        const title = await firstLink.textContent();
+        await firstLink.click();
+        await this.courseModal.waitFor({ state: 'visible', timeout: 10000 });
+        return title.trim();
+    }
+
+    /**
      * Close the course modal
      */
     async closeCourseModal() {

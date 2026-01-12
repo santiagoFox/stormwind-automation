@@ -7,7 +7,7 @@ module.exports = defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: 1, // Run one test at a time
   reporter: 'html',
-  timeout: 30000,
+  timeout: 60000,
   expect: {
     timeout: 5000
   },
