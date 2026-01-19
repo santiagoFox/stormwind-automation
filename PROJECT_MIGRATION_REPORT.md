@@ -65,11 +65,18 @@ stormwind_playwright_project/
 │   ├── index.js                    # Central exports
 │   ├── admin/                      # Admin page objects directory
 │   │   ├── index.js                # Admin central exports
-│   │   ├── admin-dashboard.page.js # Admin dashboard
-│   │   ├── admin-courses.page.js   # Admin courses management
-│   │   ├── admin-due-dates.page.js # Admin due dates
-│   │   ├── admin-assessments.page.js # Admin assessments
-│   │   └── admin-manage-library.page.js # Admin library management
+│   │   ├── admin-navigation.page.js      # Shared admin navigation component
+│   │   ├── admin-dashboard.page.js       # Admin dashboard
+│   │   ├── admin-courses.page.js         # Admin courses management
+│   │   ├── admin-course-details.page.js  # Admin course details
+│   │   ├── admin-due-dates.page.js       # Admin due dates
+│   │   ├── admin-assessments.page.js     # Admin assessments
+│   │   ├── admin-add-users.page.js       # Admin add users page
+│   │   ├── admin-assign-course-modal.page.js  # Assign course modal
+│   │   ├── admin-skills-assessments-data.page.js # Skills assessments data
+│   │   ├── admin-manage-learning-paths.page.js   # Manage learning paths
+│   │   ├── admin-create-learning-path.page.js    # Create learning path
+│   │   └── admin-manage-library.page.js  # Admin library management
 │   └── student/                    # Student page objects directory
 │       ├── index.js                # Student central exports
 │       ├── student-navigation.page.js      # Shared navigation component
@@ -79,6 +86,7 @@ stormwind_playwright_project/
 │       ├── student-courses-list.page.js    # Courses list page (subcategories/filters)
 │       ├── student-course-details.page.js  # Individual course details page
 │       ├── student-course-details-supplements.page.js # Course details with supplements
+│       ├── student-course-lessons.page.js  # Course lessons/player page with TOC
 │       ├── student-learning-paths.page.js  # Learning Paths tab
 │       ├── student-skills-assessments.page.js # Skills Assessments tab
 │       ├── student-leaderboard.page.js     # Leaderboard tab
@@ -90,28 +98,54 @@ stormwind_playwright_project/
 │       └── student-send-ideas.page.js      # Send Ideas feedback portal
 ├── specs/
 │   ├── admin/                      # Admin test files
-│   │   ├── admin-dashboard.spec.js
+│   │   ├── admin-add-users.spec.js
+│   │   ├── admin-assign-course.spec.js
 │   │   ├── admin-courses.spec.js
+│   │   ├── admin-create-learning-path.spec.js
+│   │   ├── admin-dashboard.spec.js
 │   │   ├── admin-due-dates.spec.js
 │   │   ├── admin-assessments.spec.js
-│   │   └── admin-manage-library.spec.js
-│   └── student/                    # Student test files
-│       ├── student-my-classroom.spec.js
-│       ├── student-courses.spec.js
+│   │   ├── admin-manage-learning-paths.spec.js
+│   │   ├── admin-manage-library.spec.js
+│   │   └── admin-skills-assessments-data.spec.js
+│   ├── student/                    # Student test files
+│   │   ├── student-my-classroom.spec.js
+│   │   ├── student-courses.spec.js
+│   │   ├── student-course-details.spec.js
+│   │   ├── student-course-details-supplements.spec.js
+│   │   ├── student-course-lessons.spec.js
+│   │   ├── student-learning-paths.spec.js
+│   │   ├── student-skills-assessments.spec.js
+│   │   ├── student-leaderboard.spec.js
+│   │   ├── student-webinars.spec.js
+│   │   ├── student-newsletter.spec.js
+│   │   ├── student-live-course-calendar.spec.js
+│   │   ├── student-live-schedule-modal.spec.js
+│   │   ├── student-contact-support-modal.spec.js
+│   │   └── student-send-ideas.spec.js
+│   └── nightly/                    # Nightly regression test files (48 tests)
+│       ├── admin-add-users.spec.js
+│       ├── admin-assign-course.spec.js
+│       ├── admin-create-learning-path.spec.js
+│       ├── admin-dashboard.spec.js
+│       ├── admin-due-dates.spec.js
+│       ├── admin-manage-learning-paths.spec.js
+│       ├── admin-skills-assessments-data.spec.js
+│       ├── student-contact-support-modal.spec.js
 │       ├── student-course-details.spec.js
 │       ├── student-course-details-supplements.spec.js
-│       ├── student-learning-paths.spec.js
-│       ├── student-skills-assessments.spec.js
+│       ├── student-course-lessons.spec.js
+│       ├── student-courses.spec.js
 │       ├── student-leaderboard.spec.js
-│       ├── student-webinars.spec.js
-│       ├── student-newsletter.spec.js
+│       ├── student-learning-paths.spec.js
 │       ├── student-live-course-calendar.spec.js
 │       ├── student-live-schedule-modal.spec.js
-│       ├── student-contact-support-modal.spec.js
-│       └── student-send-ideas.spec.js
-│   └── nightly/                    # Nightly regression test files
-│       ├── student-courses.spec.js
-│       └── student-course-details-supplements.spec.js
+│       ├── student-my-classroom.spec.js
+│       ├── student-navigation.spec.js
+│       ├── student-newsletter.spec.js
+│       ├── student-send-ideas.spec.js
+│       ├── student-skills-assessments.spec.js
+│       └── student-webinars.spec.js
 └── playwright.config.js
 ```
 
@@ -176,10 +210,17 @@ const test = base.extend({
 | `loginPage` | Login page object |
 | `adminPage` | Authenticated admin page |
 | `studentPage` | Authenticated student page |
+| `adminNavigation` | Admin navigation component |
 | `adminDashboard` | Admin dashboard page object |
 | `adminCourses` | Admin courses page object |
+| `adminCourseDetails` | Admin course details page object |
 | `adminDueDates` | Admin due dates page object |
 | `adminAssessments` | Admin assessments page object |
+| `adminAddUsers` | Admin add users page object |
+| `adminAssignCourseModal` | Admin assign course modal |
+| `adminSkillsAssessmentsData` | Admin skills assessments data page object |
+| `adminManageLearningPaths` | Admin manage learning paths page object |
+| `adminCreateLearningPath` | Admin create learning path page object |
 | `adminManageLibrary` | Admin library management page object |
 | `studentNavigation` | Student navigation component |
 | `studentFooter` | Student footer component |
@@ -188,6 +229,7 @@ const test = base.extend({
 | `studentCoursesList` | Courses list page object (subcategories/filters) |
 | `studentCourseDetails` | Course details page object |
 | `studentCourseDetailsSupplements` | Course details with supplements page object |
+| `studentCourseLessons` | Course lessons/player page object |
 | `studentLearningPaths` | Learning Paths page object |
 | `studentSkillsAssessments` | Skills Assessments page object |
 | `studentLeaderboard` | Leaderboard page object |
@@ -221,11 +263,24 @@ const test = base.extend({
 | Courses | `student-courses.page.js`, `student-courses-list.page.js` | `student-courses.spec.js` | **Complete** |
 | Course Details | `student-course-details.page.js` | `student-course-details.spec.js` | **Complete** |
 | Course Details (Supplements) | `student-course-details-supplements.page.js` | `student-course-details-supplements.spec.js` | **Complete** |
+| Course Lessons | `student-course-lessons.page.js` | `student-course-lessons.spec.js` | **Complete** |
 | Learning Paths | `student-learning-paths.page.js` | `student-learning-paths.spec.js` | **Complete** |
 | Skills Assessments | `student-skills-assessments.page.js` | `student-skills-assessments.spec.js` | **Complete** |
 | Leaderboard | `student-leaderboard.page.js` | `student-leaderboard.spec.js` | **Complete** |
 
-### Total Test Count: 40+ automated tests
+### Admin Main Pages
+
+| Page | Page Object | Test File | Status |
+|------|-------------|-----------|--------|
+| Dashboard | `admin-dashboard.page.js` | `admin-dashboard.spec.js` | **Complete** |
+| Add Users | `admin-add-users.page.js` | `admin-add-users.spec.js` | **Complete** |
+| Due Dates | `admin-due-dates.page.js` | `admin-due-dates.spec.js` | **Complete** |
+| Skills Assessments Data | `admin-skills-assessments-data.page.js` | `admin-skills-assessments-data.spec.js` | **Complete** |
+| Manage Learning Paths | `admin-manage-learning-paths.page.js` | `admin-manage-learning-paths.spec.js` | **Complete** |
+| Create Learning Path | `admin-create-learning-path.page.js` | `admin-create-learning-path.spec.js` | **Complete** |
+| Assign Course Modal | `admin-assign-course-modal.page.js` | `admin-assign-course.spec.js` | **Complete** |
+
+### Total Test Count: 48 nightly tests (all passing)
 
 ---
 
@@ -564,6 +619,70 @@ npx playwright test specs/student/student-learning-paths.spec.js --headed
 
 ---
 
+## Recent Updates (January 19, 2026)
+
+### Admin Create Learning Path Page - New Implementation
+- Created `admin-create-learning-path.page.js` for testing the Create Learning Path form
+- Created `admin-create-learning-path.spec.js` with comprehensive page validation
+- Implemented locators for:
+  - Back link
+  - Page title: "Creating a new Learning Path"
+  - Action buttons: Save as Draft (`#btn-save-draft`), Cancel, Publish
+  - "How does it work?" link (`#btn-how-does-it-work`)
+  - Title input field (`#learning-path-title`)
+  - Description textarea (`#learning-path-description`)
+  - Select Groups dropdown (`button.multiselect.dropdown-toggle`)
+  - Tabs: Learning Path (`a.tab`), Students
+  - Course search input (`input.search-course-term`)
+  - Stats: course count, hours count
+- Test flow: Navigate → Validate all elements → Click Cancel to avoid creating garbage data
+- Added to nightly test suite
+
+### Admin Section - Complete Implementation
+New page objects created:
+- `admin-navigation.page.js` - Shared navigation component for admin pages
+- `admin-add-users.page.js` - Add Users page with form validation
+- `admin-assign-course-modal.page.js` - Assign Course modal with due date handling
+- `admin-course-details.page.js` - Course details page for managers
+- `admin-due-dates.page.js` - Due Dates management page
+- `admin-manage-learning-paths.page.js` - Manage Learning Paths with archive/publish flow
+- `admin-skills-assessments-data.page.js` - Skills Assessments Data reporting page
+
+New spec files created:
+- `admin-add-users.spec.js` - Validates Add Users page metadata
+- `admin-assign-course.spec.js` - Tests assign course modal with warnings/errors
+- `admin-dashboard.spec.js` - Dashboard page with licenses, team activity sections
+- `admin-due-dates.spec.js` - Due Dates page validation
+- `admin-manage-learning-paths.spec.js` - Archive/Publish learning path flow
+- `admin-skills-assessments-data.spec.js` - Skills assessments reporting validation
+
+### Student Course Lessons Page - New Implementation
+- Created `student-course-lessons.page.js` for testing course player/lessons
+- Created `student-course-lessons.spec.js` with TOC validation
+- Validates Table of Contents with modules and individual lessons
+- Tests navigation to lessons page via Resume button
+
+### Bug Fixes
+- **admin-dashboard.page.js**: Fixed "Students Assigned" locator collision with notification text by adding `{ exact: true }`
+- **admin-skills-assessments-data.page.js**: Changed Average Score and Total Completed locators to use specific CSS classes (`.average-score-description span`, `.total-completed-description span`) to avoid timing issues with hidden elements
+
+### Nightly Test Suite - Expanded
+- Added all admin tests to nightly folder
+- Total nightly tests: **48 tests**
+- All tests passing with fixes applied
+
+### Fixtures Updates
+Added new admin fixtures:
+- `adminNavigation` - Admin navigation component
+- `adminCourseDetails` - Admin course details page
+- `adminAssignCourseModal` - Assign course modal
+- `adminAddUsers` - Add users page
+- `adminSkillsAssessmentsData` - Skills assessments data page
+- `adminManageLearningPaths` - Manage learning paths page
+- `adminCreateLearningPath` - Create learning path page
+
+---
+
 ## Recent Updates (January 11, 2026)
 
 ### Course Details with Supplements Page - New Implementation
@@ -728,6 +847,7 @@ Results in a framework that is:
 
 **Document Prepared By**: Claude Code (AI-Assisted)
 **Initial Date**: December 16, 2024
-**Last Updated**: January 11, 2026
+**Last Updated**: January 19, 2026
 **Framework Version**: Playwright Latest
 **Project Status**: Active Development
+**Total Nightly Tests**: 48 (all passing)

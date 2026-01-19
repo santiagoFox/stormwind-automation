@@ -8,10 +8,17 @@ const LoginPage = require('../pages/login.page');
 
 // Page Objects - Admin (from admin directory)
 const {
+    AdminNavigationPage,
     AdminDashboardPage,
     AdminCoursesPage,
+    AdminCourseDetailsPage,
+    AdminAssignCourseModalPage,
     AdminDueDatesPage,
     AdminAssessmentsPage,
+    AdminSkillsAssessmentsDataPage,
+    AdminAddUsersPage,
+    AdminManageLearningPathsPage,
+    AdminCreateLearningPathPage,
     AdminManageLibraryPage
 } = require('../pages/admin');
 
@@ -24,6 +31,7 @@ const {
     StudentCoursesListPage,
     StudentCourseDetailsPage,
     StudentCourseDetailsSupplementsPage,
+    StudentCourseLessonsPage,
     StudentLearningPathsPage,
     StudentSkillsAssessmentsPage,
     StudentLeaderboardPage,
@@ -84,9 +92,53 @@ const test = base.extend({
         await use(assessmentsPage);
     },
 
+    adminSkillsAssessmentsData: async ({ adminPage }, use) => {
+        const skillsAssessmentsDataPage = new AdminSkillsAssessmentsDataPage(adminPage);
+        await use(skillsAssessmentsDataPage);
+    },
+
+    adminAddUsers: async ({ adminPage }, use) => {
+        const addUsersPage = new AdminAddUsersPage(adminPage);
+        await use(addUsersPage);
+    },
+
+    adminManageLearningPaths: async ({ adminPage }, use) => {
+        const manageLearningPathsPage = new AdminManageLearningPathsPage(adminPage);
+        await use(manageLearningPathsPage);
+    },
+
+    adminCreateLearningPath: async ({ adminPage }, use) => {
+        const createLearningPathPage = new AdminCreateLearningPathPage(adminPage);
+        await use(createLearningPathPage);
+    },
+
     adminManageLibrary: async ({ adminPage }, use) => {
         const manageLibraryPage = new AdminManageLibraryPage(adminPage);
         await use(manageLibraryPage);
+    },
+
+    // Admin shared components
+    adminNavigation: async ({ adminPage }, use) => {
+        const navigationPage = new AdminNavigationPage(adminPage);
+        await use(navigationPage);
+    },
+
+    // Admin footer (reuses StudentFooterPage since footer is identical)
+    adminFooter: async ({ adminPage }, use) => {
+        const footerPage = new StudentFooterPage(adminPage);
+        await use(footerPage);
+    },
+
+    // Admin course details page (for managers)
+    adminCourseDetails: async ({ adminPage }, use) => {
+        const courseDetailsPage = new AdminCourseDetailsPage(adminPage);
+        await use(courseDetailsPage);
+    },
+
+    // Admin assign course modal
+    adminAssignCourseModal: async ({ adminPage }, use) => {
+        const assignCourseModal = new AdminAssignCourseModalPage(adminPage);
+        await use(assignCourseModal);
     },
 
     // Student shared components
@@ -124,6 +176,11 @@ const test = base.extend({
     studentCourseDetailsSupplements: async ({ studentPage }, use) => {
         const courseDetailsSupplementsPage = new StudentCourseDetailsSupplementsPage(studentPage);
         await use(courseDetailsSupplementsPage);
+    },
+
+    studentCourseLessons: async ({ studentPage }, use) => {
+        const courseLessonsPage = new StudentCourseLessonsPage(studentPage);
+        await use(courseLessonsPage);
     },
 
     studentLearningPaths: async ({ studentPage }, use) => {
