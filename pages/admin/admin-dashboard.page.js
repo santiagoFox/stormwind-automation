@@ -50,8 +50,9 @@ class AdminDashboardPage extends BasePage {
         // ========== STUDENT INFORMATION SECTION ==========
         this.studentInfoHeading = page.getByRole('heading', { name: 'Student Information' });
 
-        // Search input
-        this.studentSearchInput = page.getByPlaceholder('Search for a student');
+        // Search input (Student Information section)
+        // <input id="search-term" placeholder="Search">
+        this.studentSearchInput = page.locator('#search-term');
 
         // Groups dropdown
         this.groupsDropdown = page.locator('select').filter({ hasText: /group/i }).or(page.locator('[class*="group"]').locator('select'));

@@ -27,6 +27,14 @@ class AdminSkillsAssessmentsDataPage extends BasePage {
         this.averageScoreLabel = page.locator('.average-score-description span');
         this.totalCompletedLabel = page.locator('.total-completed-description span');
 
+        // "No data" states - shown when no skills assessments enrolled
+        this.noAssessmentsEnrolledLabel = page.getByText('No skills assessments enrolled yet');
+        this.noAssessmentsScoredLabel = page.getByText('No skills assessments scored yet');
+        this.noAssessmentsCompletedLabel = page.getByText('No skills assessments completed yet');
+
+        // Loading indicator for the Most Popular section
+        this.loadingIndicator = page.getByText('Loading...');
+
         // ========== SKILLS ASSESSMENT DETAILS SECTION ==========
         this.detailsHeading = page.getByRole('heading', { name: 'Skills Assessment Details' });
         this.searchInput = page.getByRole('textbox', { name: 'Search', exact: true });
@@ -98,12 +106,32 @@ class AdminSkillsAssessmentsDataPage extends BasePage {
     }
 
     /**
+     * Wait for loading to complete in the Most Popular section
+     */
+    async waitForMostPopularSectionLoaded() {
+        // Wait for loading indicator to disappear (if present)
+        await this.loadingIndicator.waitFor({ state: 'hidden', timeout: 10000 }).catch(() => {});
+    }
+
+    /**
      * Assert Most Popular section metadata is visible
+     * Handles both "has data" and "no data" states
      */
     async expectMostPopularSectionVisible() {
+        await this.waitForMostPopularSectionLoaded();
         await this.expectVisible(this.mostPopularLabel);
-        await this.expectVisible(this.averageScoreLabel);
-        await this.expectVisible(this.totalCompletedLabel);
+
+        // Check for either data labels OR "no data" messages
+        // When no assessments enrolled, the score/completed labels are hidden
+        const hasData = await this.averageScoreLabel.isVisible().catch(() => false);
+
+        if (hasData) {
+            await this.expectVisible(this.averageScoreLabel);
+            await this.expectVisible(this.totalCompletedLabel);
+        } else {
+            // Verify "no data" state is displayed
+            await this.expectVisible(this.noAssessmentsEnrolledLabel);
+        }
     }
 
     /**
