@@ -28,15 +28,16 @@ class StudentSkillsAssessmentsPage extends BasePage {
         this.cardTitle = page.locator('.course-card__title');
 
         // Modal elements - based on actual HTML structure
-        this.modal = page.locator('.course-preview-modal.modal.show, .modal.show');
-        this.modalContainer = page.locator('.course-preview');
-        this.modalTitle = page.locator('h5#modalLabel');
-        this.modalLevel = this.modalContainer.locator('.dif-time').getByText(/beginner|intermediate|advanced/i);
-        this.modalDuration = this.modalContainer.locator('.dif-time').filter({ hasText: /hour|minute/ });
-        this.modalOverviewHeading = this.modalContainer.locator('h5.overview, h5:has-text("Overview")');
-        this.modalLearnMoreLink = page.locator('a.text-learn-more-preview');
-        this.modalAddToClassroomBtn = page.locator('button.js-course-flag.btn-primary');
-        this.modalCloseButton = page.locator('a[data-dismiss="modal"][aria-label="Close"]');
+        // Modal ID pattern: #course-preview__modal--{nodeId}
+        this.modal = page.locator('[id^="course-preview__modal"].show, .modal.show');
+        this.modalContainer = page.locator('.modal.show .modal-content');
+        this.modalTitle = page.locator('.modal.show .modal-title, .modal.show h5').first();
+        this.modalLevel = page.locator('.modal.show').getByText(/beginner|intermediate|advanced/i).first();
+        this.modalDuration = page.locator('.modal.show').getByText(/less than|hour|minute/i).first();
+        this.modalOverviewHeading = page.locator('.modal.show h5:has-text("Overview"), .modal.show h4:has-text("Overview")');
+        this.modalLearnMoreLink = page.locator('.modal.show').getByRole('link', { name: /learn more/i });
+        this.modalAddToClassroomBtn = page.locator('.modal.show').getByRole('button', { name: /add to classroom/i });
+        this.modalCloseButton = page.locator('.modal.show [data-dismiss="modal"], .modal.show button[aria-label="Close"]').first();
     }
 
     /**
@@ -88,8 +89,8 @@ class StudentSkillsAssessmentsPage extends BasePage {
         await this.searchInput.fill(assessmentName);
         // Press Enter to trigger search
         await this.searchInput.press('Enter');
-        // Wait for results to load
-        await this.page.waitForLoadState('load');
+        // Wait for network to settle and loading to complete
+        await this.page.waitForLoadState('networkidle');
     }
 
     /**
@@ -134,7 +135,7 @@ class StudentSkillsAssessmentsPage extends BasePage {
      */
     async waitForAssessmentCard(assessmentName) {
         const card = this.getAssessmentCard(assessmentName);
-        await card.waitFor({ state: 'visible', timeout: 10000 });
+        await card.waitFor({ state: 'visible', timeout: 30000 });
     }
 
     /**

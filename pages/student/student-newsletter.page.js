@@ -16,10 +16,10 @@ class StudentNewsletterPage extends BasePage {
      * Click newsletter link and wait for new tab to open
      * @returns {Promise<Page>} The new page/tab that opens
      */
-    async clickNewsletterAndGetNewTab(context) {
-        // Wait for new page to open after clicking
+    async clickNewsletterAndGetNewTab() {
+        // Use popup event for target="_blank" links
         const [newPage] = await Promise.all([
-            context.waitForEvent('page'),
+            this.page.waitForEvent('popup'),
             this.navigation.sidebarNewsletter.click()
         ]);
 

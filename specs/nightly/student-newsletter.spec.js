@@ -1,12 +1,12 @@
 const { test, expect } = require('../../fixtures/fixtures');
 
 test.describe('Student - Newsletter Link', () => {
-    test('should open newsletter in new tab', async ({ studentNewsletter, context }) => {
+    test('should open newsletter in new tab', async ({ studentNewsletter }) => {
         // Navigate to My Classroom first (where sidebar is visible)
         await studentNewsletter.navigation.navigateToMyClassroom();
 
         // Click newsletter and get the new tab
-        const newPage = await studentNewsletter.clickNewsletterAndGetNewTab(context);
+        const newPage = await studentNewsletter.clickNewsletterAndGetNewTab();
 
         // Verify the new tab opened to correct domain
         const isCorrectDomain = await studentNewsletter.isOnCorrectDomain(newPage);
@@ -20,13 +20,13 @@ test.describe('Student - Newsletter Link', () => {
         await studentNewsletter.closeNewTab(newPage);
     });
 
-    test('should open newsletter from sidebar link', async ({ studentMyClassroom, context }) => {
+    test('should open newsletter from sidebar link', async ({ studentMyClassroom }) => {
         // Navigate to My Classroom
         await studentMyClassroom.navigateFromNav();
 
-        // Click newsletter sidebar link and wait for new page
+        // Click newsletter sidebar link and wait for popup (target="_blank")
         const [newPage] = await Promise.all([
-            context.waitForEvent('page'),
+            studentMyClassroom.page.waitForEvent('popup'),
             studentMyClassroom.navigation.sidebarNewsletter.click()
         ]);
 
