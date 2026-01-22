@@ -47,8 +47,9 @@ class AdminDashboardPage extends BasePage {
         // Receive Activity Report button
         this.receiveActivityReportBtn = page.getByRole('button', { name: /Receive Activity Report/i });
 
-        // ========== STUDENT INFORMATION SECTION ==========
-        this.studentInfoHeading = page.getByRole('heading', { name: 'Student Information' });
+        // ========== STUDENTS INFORMATION SECTION ==========
+        // <h2 class="block__title">Students Information</h2>
+        this.studentInfoHeading = page.getByRole('heading', { name: 'Students Information' });
 
         // Search input (Student Information section)
         // <input id="search-term" placeholder="Search">
@@ -142,6 +143,8 @@ class AdminDashboardPage extends BasePage {
         await this.expectVisible(this.studentInfoHeading);
         await this.expectVisible(this.studentSearchInput);
         await this.expectVisible(this.addUserBtn);
+        // Scroll table into view before checking visibility
+        await this.studentTable.scrollIntoViewIfNeeded();
         await this.expectVisible(this.studentTable);
     }
 

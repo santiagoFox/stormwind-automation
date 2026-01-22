@@ -129,6 +129,15 @@ class StudentSkillsAssessmentsPage extends BasePage {
     }
 
     /**
+     * Wait for a specific assessment card to be visible after search
+     * @param {string} assessmentName - The assessment name to wait for
+     */
+    async waitForAssessmentCard(assessmentName) {
+        const card = this.getAssessmentCard(assessmentName);
+        await card.waitFor({ state: 'visible', timeout: 10000 });
+    }
+
+    /**
      * Click on a specific assessment card to open modal
      * @param {string} assessmentName - The assessment name to click
      */

@@ -37,11 +37,8 @@ test.describe('Student - Skills Assessments Page', () => {
         // Verify search input has the correct value
         await expect(studentSkillsAssessments.searchInput).toHaveValue('Computer Hardware Support');
 
-        // Wait for search results to filter
-        await studentSkillsAssessments.page.waitForTimeout(1000);
-
-        // Verify the matching assessment card is visible
-        await studentSkillsAssessments.expectAssessmentCardVisible('Computer Hardware Support');
+        // Wait for search results to filter and card to be visible
+        await studentSkillsAssessments.waitForAssessmentCard('Computer Hardware Support');
 
         // 8. Click on assessment card to open modal
         await studentSkillsAssessments.openAssessmentModal('Computer Hardware Support');

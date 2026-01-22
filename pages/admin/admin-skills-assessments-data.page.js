@@ -45,8 +45,9 @@ class AdminSkillsAssessmentsDataPage extends BasePage {
         this.studentsRegisteredHeader = page.getByRole('columnheader', { name: /Students Registered/i });
         this.studentsCompletedHeader = page.getByRole('columnheader', { name: /Students Completed/i });
 
-        // Table
-        this.assessmentsTable = page.locator('table').first();
+        // Table - inside #manager-skills-assessment-div
+        // <table class="table mb-4" data-striping="1">
+        this.assessmentsTable = page.locator('#manager-skills-assessment-div table.table');
     }
 
     /**
@@ -140,6 +141,8 @@ class AdminSkillsAssessmentsDataPage extends BasePage {
     async expectDetailsSectionVisible() {
         await this.expectVisible(this.detailsHeading);
         await this.expectVisible(this.searchInput);
+        // Scroll to table and wait for it to be visible
+        await this.assessmentsTable.scrollIntoViewIfNeeded();
         await this.expectVisible(this.assessmentsTable);
     }
 
