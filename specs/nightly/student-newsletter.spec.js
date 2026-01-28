@@ -1,8 +1,11 @@
 const { test, expect } = require('../../fixtures/fixtures');
 
 test.describe('Student - Newsletter Link', () => {
-    test('should open newsletter in new tab', async ({ studentNewsletter }) => {
-        // Navigate to My Classroom first (where sidebar is visible)
+    test('should open newsletter in new tab', async ({ studentNewsletter, studentPage }) => {
+        // Navigate to home page first (storageState starts on about:blank)
+        await studentPage.goto('/');
+        await studentPage.waitForLoadState('load');
+        // Navigate to My Classroom (where sidebar is visible)
         await studentNewsletter.navigation.navigateToMyClassroom();
 
         // Click newsletter and get the new tab

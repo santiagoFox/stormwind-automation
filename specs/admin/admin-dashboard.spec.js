@@ -12,9 +12,8 @@ test.describe('Admin - Dashboard Page', () => {
         // 1. Navigate to Dashboard page
         await adminDashboard.goto();
 
-        // 2. Validate we're on the correct URL
-        const isCorrectURL = await adminDashboard.isOnCorrectURL();
-        expect(isCorrectURL).toBeTruthy();
+        // 2. Validate we're on the correct URL (web-first assertion with auto-retry)
+        await adminDashboard.expectOnCorrectURL();
 
         // 3. Validate navigation is visible
         await adminDashboard.expectNavigationVisible();

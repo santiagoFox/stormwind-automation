@@ -66,6 +66,11 @@ class AdminDueDatesPage extends BasePage {
         return url.includes('/due-date/');
     }
 
+    async expectOnCorrectURL() {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(/\/due-date\//);
+    }
+
     /**
      * Click Assign a Due Date button
      */

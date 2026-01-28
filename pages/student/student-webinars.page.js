@@ -72,6 +72,11 @@ class StudentWebinarsPage extends BasePage {
         return this.page.url().includes('/webinar');
     }
 
+    async expectOnCorrectURL() {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(/\/webinar/);
+    }
+
     // Assertions
     async expectPageTitleVisible() {
         await this.expectVisible(this.pageTitle);

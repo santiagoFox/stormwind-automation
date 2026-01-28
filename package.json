@@ -11,10 +11,16 @@
     "test:admin": "playwright test specs/admin",
     "report": "playwright show-report"
   },
-  "keywords": ["playwright", "testing", "automation", "stormwind"],
+  "keywords": [
+    "playwright",
+    "testing",
+    "automation",
+    "stormwind"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.40.0"
+    "@playwright/test": "^1.40.0",
+    "dotenv": "^17.2.3"
   }
 }

@@ -47,6 +47,8 @@ class StudentCoursesPage extends BasePage {
      * Navigate to Courses page via navigation menu
      */
     async goto() {
+        await this.page.goto('/');
+        await this.page.waitForLoadState('load');
         await this.navigation.navigateToCourses();
     }
 
@@ -64,6 +66,11 @@ class StudentCoursesPage extends BasePage {
      */
     async isOnCorrectURL() {
         return this.page.url().includes('/topics');
+    }
+
+    async expectOnCorrectURL() {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(/\/topics/);
     }
 
     /**

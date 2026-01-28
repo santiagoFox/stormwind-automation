@@ -33,6 +33,8 @@ class StudentMyClassroomPage extends BasePage {
     }
 
     async navigateFromNav() {
+        await this.page.goto('/');
+        await this.page.waitForLoadState('load');
         await this.navigation.navigateToMyClassroom();
     }
 
@@ -66,6 +68,11 @@ class StudentMyClassroomPage extends BasePage {
     // URL verification
     async isOnCorrectURL() {
         return this.page.url().includes('my_classroom');
+    }
+
+    async expectOnCorrectURL() {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(/my_classroom/);
     }
 
     // Assertions - Page specific

@@ -66,6 +66,9 @@ class StudentLeaderboardPage extends BasePage {
      * Navigate to Leaderboard page via navigation menu
      */
     async goto() {
+        // First go to base URL to load the page with navigation
+        await this.page.goto('/');
+        await this.page.waitForLoadState('load');
         await this.navigation.navigateToLeaderboard();
     }
 
@@ -83,6 +86,11 @@ class StudentLeaderboardPage extends BasePage {
      */
     async isOnCorrectURL() {
         return this.page.url().includes('leaderboard');
+    }
+
+    async expectOnCorrectURL() {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(/leaderboard/);
     }
 
     // --- Export Chart Methods ---

@@ -70,6 +70,11 @@ class AdminCourseDetailsPage extends BasePage {
         return url.includes(expectedPath);
     }
 
+    async expectOnCorrectURL(expectedPath = 'pl-300-microsoft-power-bi-data-analyst') {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(new RegExp(expectedPath));
+    }
+
     // --- Assertions ---
 
     /**

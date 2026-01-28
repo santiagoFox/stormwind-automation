@@ -48,6 +48,8 @@ class StudentLearningPathsPage extends BasePage {
      * Navigate to Learning Paths page via navigation menu
      */
     async goto() {
+        await this.page.goto('/');
+        await this.page.waitForLoadState('load');
         await this.navigation.navigateToLearningPaths();
     }
 
@@ -72,6 +74,11 @@ class StudentLearningPathsPage extends BasePage {
      */
     async isOnCorrectURL() {
         return this.page.url().includes('/learningpaths');
+    }
+
+    async expectOnCorrectURL() {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(/\/learningpaths/);
     }
 
     // --- Filter Methods ---

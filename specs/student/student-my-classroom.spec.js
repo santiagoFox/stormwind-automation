@@ -10,9 +10,8 @@ test.describe('Student - My Classroom Page', () => {
         // Navigate to My Classroom via top navigation
         await studentMyClassroom.navigateFromNav();
 
-        // 1. Validate URL
-        const isCorrectURL = await studentMyClassroom.isOnCorrectURL();
-        expect(isCorrectURL).toBeTruthy();
+        // 1. Validate URL (web-first assertion with auto-retry)
+        await studentMyClassroom.expectOnCorrectURL();
 
         // 2. Verify welcome message
         await studentMyClassroom.expectWelcomeMessageVisible();

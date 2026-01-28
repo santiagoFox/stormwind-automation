@@ -67,6 +67,11 @@ class AdminSkillsAssessmentsDataPage extends BasePage {
         return url.includes('/skills-assessment/');
     }
 
+    async expectOnCorrectURL() {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(/\/skills-assessment\//);
+    }
+
     /**
      * Search for a skills assessment
      * @param {string} searchText - Text to search for

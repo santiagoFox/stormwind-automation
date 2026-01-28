@@ -3,20 +3,17 @@ const URLS = {
     LOGIN: '/user/login',
     LOGOUT: '/user/logout',
 
-    // Admin routes
+    // Admin routes - Note: Actual admin URLs use /team/{teamId}/... pattern
+    // These are accessed via navigation, not direct URL
     ADMIN: {
-        DASHBOARD: '/admin/dashboard',
-        COURSES: '/admin/courses',
-        DUE_DATES: '/admin/due-dates',
-        ASSESSMENTS: '/admin/assessments',
-        MANAGE_LIBRARY: '/admin/manage-library'
+        // Dashboard is accessed via hardcoded URL in page object
+        // Other admin pages are accessed via navigation links
     },
 
-    // Student routes
+    // Student routes - Note: Actual student URLs vary
+    // These are accessed via navigation, not direct URL
     STUDENT: {
-        DASHBOARD: '/student/dashboard',
-        MY_CLASSROOM: '/student/my-classroom',
-        LEADERBOARD: '/student/leaderboard'
+        // Student pages are accessed via navigation links
     }
 };
 

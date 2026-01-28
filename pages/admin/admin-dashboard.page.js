@@ -85,10 +85,19 @@ class AdminDashboardPage extends BasePage {
     /**
      * Check if on correct URL
      * @returns {boolean}
+     * @deprecated Use expectOnCorrectURL() for web-first assertions
      */
     async isOnCorrectURL() {
         const url = this.page.url();
         return url.includes('/reporting/');
+    }
+
+    /**
+     * Assert on correct URL (web-first assertion with auto-retry)
+     */
+    async expectOnCorrectURL() {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(/\/reporting\//);
     }
 
     // --- Assertions ---

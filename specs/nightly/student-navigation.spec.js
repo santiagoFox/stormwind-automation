@@ -1,6 +1,12 @@
 const { test, expect } = require('../../fixtures/fixtures');
 
 test.describe('Student - Navigation Tests', () => {
+    test.beforeEach(async ({ studentPage }) => {
+        // Navigate to home page first (storageState starts on about:blank)
+        await studentPage.goto('/');
+        await studentPage.waitForLoadState('load');
+    });
+
     test('should display main navigation tabs', async ({ studentNavigation }) => {
         await studentNavigation.expectMainNavVisible();
     });

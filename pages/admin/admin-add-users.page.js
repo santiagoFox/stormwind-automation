@@ -66,6 +66,11 @@ class AdminAddUsersPage extends BasePage {
         return url.includes('/invitations');
     }
 
+    async expectOnCorrectURL() {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(/\/invitations/);
+    }
+
     // --- Assertions ---
 
     /**

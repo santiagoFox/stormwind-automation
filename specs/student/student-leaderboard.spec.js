@@ -10,10 +10,8 @@ test.describe('Student - Leaderboard Page', () => {
         // Navigate to Leaderboard page
         await studentLeaderboard.goto();
 
-        // 1. Validate URL
-        const isCorrectURL = await studentLeaderboard.isOnCorrectURL();
-        expect(isCorrectURL).toBeTruthy();
-        expect(studentLeaderboard.page.url()).toContain('leaderboard');
+        // 1. Validate URL (web-first assertion with auto-retry)
+        await studentLeaderboard.expectOnCorrectURL();
 
         // 2. Validate page heading
         await studentLeaderboard.expectPageHeadingVisible();

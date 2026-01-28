@@ -43,6 +43,9 @@ test.describe('Student - Contact Support Modal', () => {
         // Click Contact Support
         await studentMyClassroom.navigation.clickContactSupport();
 
+        // Wait for modal to be visible first
+        await studentContactSupportModal.expectModalVisible();
+
         // Verify form elements
         await studentContactSupportModal.expectTextboxVisible();
         await studentContactSupportModal.expectRequestButtonVisible();

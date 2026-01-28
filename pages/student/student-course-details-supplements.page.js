@@ -65,6 +65,11 @@ class StudentCourseDetailsSupplementsPage extends BasePage {
         return url.includes('/stormwind-developer/python/python-foundations');
     }
 
+    async expectOnCorrectURL() {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(/\/stormwind-developer\/python\/python-foundations/);
+    }
+
     /**
      * Get supplements count from badge
      */

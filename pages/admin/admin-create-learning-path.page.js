@@ -71,6 +71,11 @@ class AdminCreateLearningPathPage extends BasePage {
         return url.includes('/learning-path/create');
     }
 
+    async expectOnCorrectURL() {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(/\/learning-path\/create/);
+    }
+
     /**
      * Click Cancel button to go back
      */

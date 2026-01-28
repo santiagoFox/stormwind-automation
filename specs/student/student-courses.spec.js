@@ -15,10 +15,8 @@ test.describe('Student - Courses Page', () => {
         // Navigate to Courses page
         await studentCourses.goto();
 
-        // 1. Validate URL contains /topics
-        const isCorrectURL = await studentCourses.isOnCorrectURL();
-        expect(isCorrectURL).toBeTruthy();
-        expect(studentCourses.page.url()).toContain('/topics');
+        // 1. Validate URL contains /topics (web-first assertion with auto-retry)
+        await studentCourses.expectOnCorrectURL();
 
         // 2. Validate page heading "Courses"
         await studentCourses.expectPageHeadingVisible();

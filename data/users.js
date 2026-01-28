@@ -1,17 +1,19 @@
+require('dotenv').config();
+
 const users = {
     admin: {
-        email: 'santiago+mobilestudentmanager@foxbox.com',
-        password: '123456',
+        email: process.env.ADMIN_EMAIL,
+        password: process.env.ADMIN_PASSWORD,
         role: 'admin'
     },
     manager: {
-        email: 'santiago+mobilestudentmanager@foxbox.com',
-        password: '123456',
+        email: process.env.MANAGER_EMAIL,
+        password: process.env.MANAGER_PASSWORD,
         role: 'manager'
     },
     student: {
-        email: 'santiago+mobilestudent@foxbox.com',
-        password: '123456',
+        email: process.env.STUDENT_EMAIL,
+        password: process.env.STUDENT_PASSWORD,
         role: 'student'
     }
 };

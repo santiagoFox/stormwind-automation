@@ -10,16 +10,13 @@ const LoginPage = require('../pages/login.page');
 const {
     AdminNavigationPage,
     AdminDashboardPage,
-    AdminCoursesPage,
     AdminCourseDetailsPage,
     AdminAssignCourseModalPage,
     AdminDueDatesPage,
-    AdminAssessmentsPage,
     AdminSkillsAssessmentsDataPage,
     AdminAddUsersPage,
     AdminManageLearningPathsPage,
-    AdminCreateLearningPathPage,
-    AdminManageLibraryPage
+    AdminCreateLearningPathPage
 } = require('../pages/admin');
 
 // Page Objects - Student (from student directory)
@@ -45,187 +42,165 @@ const {
 
 /**
  * Custom Playwright fixtures for Stormwind application
+ * Authentication is handled via storageState in playwright.config.js
  */
 const test = base.extend({
-    // Login page fixture
+    // Login page fixture (for tests that need to test login itself)
     loginPage: async ({ page }, use) => {
         const loginPage = new LoginPage(page);
         await use(loginPage);
     },
 
-    // Authenticated admin page
+    // Legacy page aliases (for backwards compatibility)
+    // Page is already authenticated via storageState from config
     adminPage: async ({ page }, use) => {
-        const loginPage = new LoginPage(page);
-        await page.goto(URLS.LOGIN);
-        await loginPage.login(users.admin.email, users.admin.password);
-        await page.waitForLoadState('load');
         await use(page);
     },
 
-    // Authenticated student page
     studentPage: async ({ page }, use) => {
-        const loginPage = new LoginPage(page);
-        await page.goto(URLS.LOGIN);
-        await loginPage.login(users.student.email, users.student.password);
-        await page.waitForLoadState('load');
         await use(page);
     },
 
-    // Admin page objects - auto-initialized after login
-    adminDashboard: async ({ adminPage }, use) => {
-        const dashboardPage = new AdminDashboardPage(adminPage);
+    // Admin page objects - page is already authenticated via storageState
+    adminDashboard: async ({ page }, use) => {
+        const dashboardPage = new AdminDashboardPage(page);
         await use(dashboardPage);
     },
 
-    adminCourses: async ({ adminPage }, use) => {
-        const coursesPage = new AdminCoursesPage(adminPage);
-        await use(coursesPage);
-    },
-
-    adminDueDates: async ({ adminPage }, use) => {
-        const dueDatesPage = new AdminDueDatesPage(adminPage);
+    adminDueDates: async ({ page }, use) => {
+        const dueDatesPage = new AdminDueDatesPage(page);
         await use(dueDatesPage);
     },
 
-    adminAssessments: async ({ adminPage }, use) => {
-        const assessmentsPage = new AdminAssessmentsPage(adminPage);
-        await use(assessmentsPage);
-    },
-
-    adminSkillsAssessmentsData: async ({ adminPage }, use) => {
-        const skillsAssessmentsDataPage = new AdminSkillsAssessmentsDataPage(adminPage);
+    adminSkillsAssessmentsData: async ({ page }, use) => {
+        const skillsAssessmentsDataPage = new AdminSkillsAssessmentsDataPage(page);
         await use(skillsAssessmentsDataPage);
     },
 
-    adminAddUsers: async ({ adminPage }, use) => {
-        const addUsersPage = new AdminAddUsersPage(adminPage);
+    adminAddUsers: async ({ page }, use) => {
+        const addUsersPage = new AdminAddUsersPage(page);
         await use(addUsersPage);
     },
 
-    adminManageLearningPaths: async ({ adminPage }, use) => {
-        const manageLearningPathsPage = new AdminManageLearningPathsPage(adminPage);
+    adminManageLearningPaths: async ({ page }, use) => {
+        const manageLearningPathsPage = new AdminManageLearningPathsPage(page);
         await use(manageLearningPathsPage);
     },
 
-    adminCreateLearningPath: async ({ adminPage }, use) => {
-        const createLearningPathPage = new AdminCreateLearningPathPage(adminPage);
+    adminCreateLearningPath: async ({ page }, use) => {
+        const createLearningPathPage = new AdminCreateLearningPathPage(page);
         await use(createLearningPathPage);
     },
 
-    adminManageLibrary: async ({ adminPage }, use) => {
-        const manageLibraryPage = new AdminManageLibraryPage(adminPage);
-        await use(manageLibraryPage);
-    },
-
     // Admin shared components
-    adminNavigation: async ({ adminPage }, use) => {
-        const navigationPage = new AdminNavigationPage(adminPage);
+    adminNavigation: async ({ page }, use) => {
+        const navigationPage = new AdminNavigationPage(page);
         await use(navigationPage);
     },
 
     // Admin footer (reuses StudentFooterPage since footer is identical)
-    adminFooter: async ({ adminPage }, use) => {
-        const footerPage = new StudentFooterPage(adminPage);
+    adminFooter: async ({ page }, use) => {
+        const footerPage = new StudentFooterPage(page);
         await use(footerPage);
     },
 
     // Admin course details page (for managers)
-    adminCourseDetails: async ({ adminPage }, use) => {
-        const courseDetailsPage = new AdminCourseDetailsPage(adminPage);
+    adminCourseDetails: async ({ page }, use) => {
+        const courseDetailsPage = new AdminCourseDetailsPage(page);
         await use(courseDetailsPage);
     },
 
     // Admin assign course modal
-    adminAssignCourseModal: async ({ adminPage }, use) => {
-        const assignCourseModal = new AdminAssignCourseModalPage(adminPage);
+    adminAssignCourseModal: async ({ page }, use) => {
+        const assignCourseModal = new AdminAssignCourseModalPage(page);
         await use(assignCourseModal);
     },
 
     // Student shared components
-    studentNavigation: async ({ studentPage }, use) => {
-        const navigationPage = new StudentNavigationPage(studentPage);
+    studentNavigation: async ({ page }, use) => {
+        const navigationPage = new StudentNavigationPage(page);
         await use(navigationPage);
     },
 
-    studentFooter: async ({ studentPage }, use) => {
-        const footerPage = new StudentFooterPage(studentPage);
+    studentFooter: async ({ page }, use) => {
+        const footerPage = new StudentFooterPage(page);
         await use(footerPage);
     },
 
-    // Student page objects - auto-initialized after login
-    studentMyClassroom: async ({ studentPage }, use) => {
-        const myClassroomPage = new StudentMyClassroomPage(studentPage);
+    // Student page objects - page is already authenticated via storageState
+    studentMyClassroom: async ({ page }, use) => {
+        const myClassroomPage = new StudentMyClassroomPage(page);
         await use(myClassroomPage);
     },
 
-    studentCourses: async ({ studentPage }, use) => {
-        const coursesPage = new StudentCoursesPage(studentPage);
+    studentCourses: async ({ page }, use) => {
+        const coursesPage = new StudentCoursesPage(page);
         await use(coursesPage);
     },
 
-    studentCoursesList: async ({ studentPage }, use) => {
-        const coursesListPage = new StudentCoursesListPage(studentPage);
+    studentCoursesList: async ({ page }, use) => {
+        const coursesListPage = new StudentCoursesListPage(page);
         await use(coursesListPage);
     },
 
-    studentCourseDetails: async ({ studentPage }, use) => {
-        const courseDetailsPage = new StudentCourseDetailsPage(studentPage);
+    studentCourseDetails: async ({ page }, use) => {
+        const courseDetailsPage = new StudentCourseDetailsPage(page);
         await use(courseDetailsPage);
     },
 
-    studentCourseDetailsSupplements: async ({ studentPage }, use) => {
-        const courseDetailsSupplementsPage = new StudentCourseDetailsSupplementsPage(studentPage);
+    studentCourseDetailsSupplements: async ({ page }, use) => {
+        const courseDetailsSupplementsPage = new StudentCourseDetailsSupplementsPage(page);
         await use(courseDetailsSupplementsPage);
     },
 
-    studentCourseLessons: async ({ studentPage }, use) => {
-        const courseLessonsPage = new StudentCourseLessonsPage(studentPage);
+    studentCourseLessons: async ({ page }, use) => {
+        const courseLessonsPage = new StudentCourseLessonsPage(page);
         await use(courseLessonsPage);
     },
 
-    studentLearningPaths: async ({ studentPage }, use) => {
-        const learningPathsPage = new StudentLearningPathsPage(studentPage);
+    studentLearningPaths: async ({ page }, use) => {
+        const learningPathsPage = new StudentLearningPathsPage(page);
         await use(learningPathsPage);
     },
 
-    studentSkillsAssessments: async ({ studentPage }, use) => {
-        const skillsAssessmentsPage = new StudentSkillsAssessmentsPage(studentPage);
+    studentSkillsAssessments: async ({ page }, use) => {
+        const skillsAssessmentsPage = new StudentSkillsAssessmentsPage(page);
         await use(skillsAssessmentsPage);
     },
 
-    studentLeaderboard: async ({ studentPage }, use) => {
-        const leaderboardPage = new StudentLeaderboardPage(studentPage);
+    studentLeaderboard: async ({ page }, use) => {
+        const leaderboardPage = new StudentLeaderboardPage(page);
         await use(leaderboardPage);
     },
 
     // Sidebar pages
-    studentWebinars: async ({ studentPage }, use) => {
-        const webinarsPage = new StudentWebinarsPage(studentPage);
+    studentWebinars: async ({ page }, use) => {
+        const webinarsPage = new StudentWebinarsPage(page);
         await use(webinarsPage);
     },
 
-    studentNewsletter: async ({ studentPage }, use) => {
-        const newsletterPage = new StudentNewsletterPage(studentPage);
+    studentNewsletter: async ({ page }, use) => {
+        const newsletterPage = new StudentNewsletterPage(page);
         await use(newsletterPage);
     },
 
-    studentLiveCourseCalendar: async ({ studentPage }, use) => {
-        const calendarPage = new StudentLiveCourseCalendarPage(studentPage);
+    studentLiveCourseCalendar: async ({ page }, use) => {
+        const calendarPage = new StudentLiveCourseCalendarPage(page);
         await use(calendarPage);
     },
 
-    studentLiveScheduleModal: async ({ studentPage }, use) => {
-        const liveScheduleModal = new StudentLiveScheduleModalPage(studentPage);
+    studentLiveScheduleModal: async ({ page }, use) => {
+        const liveScheduleModal = new StudentLiveScheduleModalPage(page);
         await use(liveScheduleModal);
     },
 
-    studentContactSupportModal: async ({ studentPage }, use) => {
-        const contactSupportModal = new StudentContactSupportModalPage(studentPage);
+    studentContactSupportModal: async ({ page }, use) => {
+        const contactSupportModal = new StudentContactSupportModalPage(page);
         await use(contactSupportModal);
     },
 
-    studentSendIdeas: async ({ studentPage }, use) => {
-        const sendIdeasPage = new StudentSendIdeasPage(studentPage);
+    studentSendIdeas: async ({ page }, use) => {
+        const sendIdeasPage = new StudentSendIdeasPage(page);
         await use(sendIdeasPage);
     }
 });

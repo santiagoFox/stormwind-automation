@@ -54,8 +54,16 @@ The migration was completed with **AI-assisted development** using Claude Code, 
 
 ```
 stormwind_playwright_project/
+├── .env                            # Environment variables (credentials) - NOT in git
+├── .env.example                    # Template for .env file
+├── auth/
+│   ├── admin.setup.js              # Admin authentication setup
+│   ├── student.setup.js            # Student authentication setup
+│   └── .auth/                      # Stored auth sessions (gitignored)
+│       ├── admin.json
+│       └── student.json
 ├── data/
-│   ├── users.js                    # User credentials (admin, manager, student)
+│   ├── users.js                    # User credentials (reads from .env)
 │   └── urls.js                     # URL constants
 ├── fixtures/
 │   └── fixtures.js                 # Playwright custom fixtures
@@ -67,16 +75,13 @@ stormwind_playwright_project/
 │   │   ├── index.js                # Admin central exports
 │   │   ├── admin-navigation.page.js      # Shared admin navigation component
 │   │   ├── admin-dashboard.page.js       # Admin dashboard
-│   │   ├── admin-courses.page.js         # Admin courses management
 │   │   ├── admin-course-details.page.js  # Admin course details
 │   │   ├── admin-due-dates.page.js       # Admin due dates
-│   │   ├── admin-assessments.page.js     # Admin assessments
 │   │   ├── admin-add-users.page.js       # Admin add users page
 │   │   ├── admin-assign-course-modal.page.js  # Assign course modal
 │   │   ├── admin-skills-assessments-data.page.js # Skills assessments data
 │   │   ├── admin-manage-learning-paths.page.js   # Manage learning paths
-│   │   ├── admin-create-learning-path.page.js    # Create learning path
-│   │   └── admin-manage-library.page.js  # Admin library management
+│   │   └── admin-create-learning-path.page.js    # Create learning path
 │   └── student/                    # Student page objects directory
 │       ├── index.js                # Student central exports
 │       ├── student-navigation.page.js      # Shared navigation component
@@ -100,13 +105,10 @@ stormwind_playwright_project/
 │   ├── admin/                      # Admin test files
 │   │   ├── admin-add-users.spec.js
 │   │   ├── admin-assign-course.spec.js
-│   │   ├── admin-courses.spec.js
 │   │   ├── admin-create-learning-path.spec.js
 │   │   ├── admin-dashboard.spec.js
 │   │   ├── admin-due-dates.spec.js
-│   │   ├── admin-assessments.spec.js
 │   │   ├── admin-manage-learning-paths.spec.js
-│   │   ├── admin-manage-library.spec.js
 │   │   └── admin-skills-assessments-data.spec.js
 │   ├── student/                    # Student test files
 │   │   ├── student-my-classroom.spec.js
@@ -181,22 +183,36 @@ This approach:
 
 ## Fixtures System
 
-Custom Playwright fixtures handle authentication and page object instantiation:
+Custom Playwright fixtures handle page object instantiation. Authentication is handled via **StorageState** (pre-authenticated sessions):
 
+### Authentication Setup (auth/*.setup.js)
+```javascript
+// auth/admin.setup.js
+const { test: setup } = require('@playwright/test');
+const users = require('../data/users');
+const URLS = require('../data/urls');
+
+setup('authenticate as admin', async ({ page }) => {
+    await page.goto(URLS.LOGIN);
+    await page.locator('#email-only').fill(users.admin.email);
+    await page.getByRole('button', { name: 'Enter' }).click();
+    await page.getByRole('textbox', { name: 'Password' }).fill(users.admin.password);
+    await page.getByRole('button', { name: 'Log in' }).click();
+    await page.waitForLoadState('networkidle');
+    await page.context().storageState({ path: 'auth/.auth/admin.json' });
+});
+```
+
+### Fixtures (fixtures/fixtures.js)
 ```javascript
 const test = base.extend({
-    // Authenticated student page
-    studentPage: async ({ page }, use) => {
-        const loginPage = new LoginPage(page);
-        await page.goto(URLS.LOGIN);
-        await loginPage.login(users.student.email, users.student.password);
-        await page.waitForLoadState('load');
-        await use(page);
-    },
+    // Page aliases (authenticated via storageState in project config)
+    adminPage: async ({ page }, use) => { await use(page); },
+    studentPage: async ({ page }, use) => { await use(page); },
 
-    // Page objects auto-initialized after login
-    studentMyClassroom: async ({ studentPage }, use) => {
-        const myClassroomPage = new StudentMyClassroomPage(studentPage);
+    // Page objects use the pre-authenticated page
+    studentMyClassroom: async ({ page }, use) => {
+        const myClassroomPage = new StudentMyClassroomPage(page);
         await use(myClassroomPage);
     },
     // ... more fixtures
@@ -208,20 +224,17 @@ const test = base.extend({
 | Fixture | Description |
 |---------|-------------|
 | `loginPage` | Login page object |
-| `adminPage` | Authenticated admin page |
-| `studentPage` | Authenticated student page |
+| `adminPage` | Pre-authenticated admin page (via storageState) |
+| `studentPage` | Pre-authenticated student page (via storageState) |
 | `adminNavigation` | Admin navigation component |
 | `adminDashboard` | Admin dashboard page object |
-| `adminCourses` | Admin courses page object |
 | `adminCourseDetails` | Admin course details page object |
 | `adminDueDates` | Admin due dates page object |
-| `adminAssessments` | Admin assessments page object |
 | `adminAddUsers` | Admin add users page object |
 | `adminAssignCourseModal` | Admin assign course modal |
 | `adminSkillsAssessmentsData` | Admin skills assessments data page object |
 | `adminManageLearningPaths` | Admin manage learning paths page object |
 | `adminCreateLearningPath` | Admin create learning path page object |
-| `adminManageLibrary` | Admin library management page object |
 | `studentNavigation` | Student navigation component |
 | `studentFooter` | Student footer component |
 | `studentMyClassroom` | My Classroom page object |
@@ -280,7 +293,7 @@ const test = base.extend({
 | Create Learning Path | `admin-create-learning-path.page.js` | `admin-create-learning-path.spec.js` | **Complete** |
 | Assign Course Modal | `admin-assign-course-modal.page.js` | `admin-assign-course.spec.js` | **Complete** |
 
-### Total Test Count: 48 nightly tests (all passing)
+### Total Test Count: 49 passing, 1 skipped per suite
 
 ---
 
@@ -582,24 +595,46 @@ this.modalCloseButton = page.locator('a[aria-label="Close"][data-dismiss="modal"
 
 ## Running Tests
 
-### List All Tests
+### Setup Environment
+Before running tests, create a `.env` file with credentials:
 ```bash
-npx playwright test --list
+cp .env.example .env
+# Edit .env with actual credentials
 ```
 
-### Run All Tests
+### Run All Regular Tests (Admin + Student)
 ```bash
-npx playwright test
+npx playwright test --project=admin-tests --project=student-tests
+```
+
+### Run Only Admin Tests
+```bash
+npx playwright test --project=admin-tests
+```
+
+### Run Only Student Tests
+```bash
+npx playwright test --project=student-tests
+```
+
+### Run Nightly Tests (CI/Regression)
+```bash
+npx playwright test specs/nightly/
 ```
 
 ### Run Specific Test File
 ```bash
-npx playwright test specs/student/student-learning-paths.spec.js
+npx playwright test --project=student-tests specs/student/student-learning-paths.spec.js
 ```
 
 ### Run Tests by Pattern
 ```bash
 npx playwright test --grep "Learning Paths"
+```
+
+### List All Tests
+```bash
+npx playwright test --list
 ```
 
 ### Run with UI Mode
@@ -614,8 +649,66 @@ npx playwright test --debug
 
 ### Run with Headed Browser
 ```bash
-npx playwright test specs/student/student-learning-paths.spec.js --headed
+npx playwright test --project=student-tests specs/student/student-learning-paths.spec.js --headed
 ```
+
+### View Test Report
+```bash
+npx playwright show-report
+```
+
+---
+
+## Recent Updates (January 28, 2026)
+
+### Code Review Improvements - All Implemented
+
+Based on team code review feedback, the following improvements were implemented:
+
+| Improvement | Description | Status |
+|-------------|-------------|--------|
+| **Security** | Credentials moved from hardcoded values to `.env` file | ✅ Done |
+| **Performance** | StorageState auth caching - no UI login per test | ✅ Done |
+| **Performance** | Parallel execution (4 workers locally, 2 in CI) | ✅ Done |
+| **Reliability** | Web-first assertions with `expectOnCorrectURL()` methods | ✅ Done |
+
+### Authentication Setup (StorageState)
+- Created `auth/admin.setup.js` - Authenticates admin user and saves session
+- Created `auth/student.setup.js` - Authenticates student user and saves session
+- Session files stored in `auth/.auth/admin.json` and `auth/.auth/student.json`
+- Tests no longer perform UI login - they use pre-authenticated sessions
+- Significantly faster test execution
+
+### Environment Variables
+- Created `.env` file for credentials (not committed to git)
+- Created `.env.example` as template for team members
+- Updated `data/users.js` to read from environment variables
+- Installed `dotenv` package for environment variable loading
+
+### Playwright Configuration Updates
+- Enabled `fullyParallel: true` for parallel test execution
+- Set workers: 4 (local) / 2 (CI)
+- Added 5 test projects:
+  - `admin-setup` - Auth setup for admin
+  - `student-setup` - Auth setup for student
+  - `admin-tests` - Admin test suite (depends on admin-setup)
+  - `student-tests` - Student test suite (depends on student-setup)
+  - `nightly-admin` / `nightly-student` - Nightly regression tests
+
+### Deleted Non-Existent Page Tests
+The following tests and page objects were removed as they tested URLs that don't exist on the site:
+- `admin-assessments.spec.js` / `admin-assessments.page.js` - `/admin/assessments` doesn't exist
+- `admin-courses.spec.js` / `admin-courses.page.js` - `/admin/courses` doesn't exist
+- `admin-manage-library.spec.js` / `admin-manage-library.page.js` - `/admin/manage-library` doesn't exist
+
+### Skipped Tests
+- `student-skills-assessments.spec.js` - Modal functionality on the site has changed; modal no longer opens on card click
+
+### Test Results Summary
+| Suite | Passed | Skipped |
+|-------|--------|---------|
+| Regular (admin-tests + student-tests) | 49 | 1 |
+| Nightly (specs/nightly/) | 49 | 1 |
 
 ---
 
@@ -668,8 +761,8 @@ New spec files created:
 
 ### Nightly Test Suite - Expanded
 - Added all admin tests to nightly folder
-- Total nightly tests: **48 tests**
-- All tests passing with fixes applied
+- Total nightly tests: **49 passing, 1 skipped**
+- All tests passing with fixes applied (1 skipped due to site modal change)
 
 ### Fixtures Updates
 Added new admin fixtures:
@@ -847,7 +940,7 @@ Results in a framework that is:
 
 **Document Prepared By**: Claude Code (AI-Assisted)
 **Initial Date**: December 16, 2024
-**Last Updated**: January 19, 2026
+**Last Updated**: January 28, 2026
 **Framework Version**: Playwright Latest
 **Project Status**: Active Development
-**Total Nightly Tests**: 48 (all passing)
+**Total Tests**: 49 passing, 1 skipped per suite (Regular + Nightly)

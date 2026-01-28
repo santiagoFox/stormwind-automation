@@ -37,13 +37,15 @@ class StudentSkillsAssessmentsPage extends BasePage {
         this.modalOverviewHeading = page.locator('.modal.show h5:has-text("Overview"), .modal.show h4:has-text("Overview")');
         this.modalLearnMoreLink = page.locator('.modal.show').getByRole('link', { name: /learn more/i });
         this.modalAddToClassroomBtn = page.locator('.modal.show').getByRole('button', { name: /add to classroom/i });
-        this.modalCloseButton = page.locator('.modal.show [data-dismiss="modal"], .modal.show button[aria-label="Close"]').first();
+        this.modalCloseButton = page.locator('.modal.show').getByRole('link', { name: 'Close' });
     }
 
     /**
      * Navigate to Skills Assessments page via navigation menu
      */
     async goto() {
+        await this.page.goto('/');
+        await this.page.waitForLoadState('load');
         await this.navigation.navigateToSkillsAssessments();
     }
 
@@ -61,6 +63,11 @@ class StudentSkillsAssessmentsPage extends BasePage {
      */
     async isOnCorrectURL() {
         return this.page.url().includes('/skillsassessment');
+    }
+
+    async expectOnCorrectURL() {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(/\/skillsassessment/);
     }
 
     // --- Search Methods ---
@@ -89,8 +96,8 @@ class StudentSkillsAssessmentsPage extends BasePage {
         await this.searchInput.fill(assessmentName);
         // Press Enter to trigger search
         await this.searchInput.press('Enter');
-        // Wait for network to settle and loading to complete
-        await this.page.waitForLoadState('networkidle');
+        // Wait for load state (networkidle can timeout in some conditions)
+        await this.page.waitForLoadState('load');
     }
 
     /**

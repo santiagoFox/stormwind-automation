@@ -48,6 +48,11 @@ class AdminManageLearningPathsPage extends BasePage {
         return url.includes('/learning-path');
     }
 
+    async expectOnCorrectURL() {
+        const { expect } = require('@playwright/test');
+        await expect(this.page).toHaveURL(/\/learning-path/);
+    }
+
     /**
      * Get a learning path row by name in Active Paths section
      * @param {string} lpName - Name of the learning path

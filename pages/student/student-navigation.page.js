@@ -72,7 +72,8 @@ class StudentNavigationPage extends BasePage {
 
     async clickContactSupport() {
         await this.sidebarContactSupport.click();
-        await this.page.waitForLoadState('load');
+        // Wait for modal to appear (Contact Support opens a modal, not a new page)
+        await this.page.locator('.ui-dialog').filter({ hasText: 'Contact Support' }).waitFor({ state: 'visible' });
     }
 
     async clickSendIdeas() {
