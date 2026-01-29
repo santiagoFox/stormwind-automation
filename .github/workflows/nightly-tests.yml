@@ -29,6 +29,11 @@ jobs:
       
     - name: Run Playwright tests
       run: npx playwright test specs/nightly/
+      env:
+        ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+        ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
+        STUDENT_EMAIL: ${{ secrets.STUDENT_EMAIL }}
+        STUDENT_PASSWORD: ${{ secrets.STUDENT_PASSWORD }}
       
     - name: Upload test report
       uses: actions/upload-artifact@v4
