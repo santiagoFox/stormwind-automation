@@ -81,5 +81,18 @@ module.exports = defineConfig({
       testMatch: /specs\/nightly\/student-.*.spec.js/,
       testDir: '.',
     },
+
+    // Debug project - for troubleshooting CI issues
+    {
+      name: 'debug-student',
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1280, height: 720 },
+        storageState: 'auth/.auth/student.json',
+      },
+      dependencies: ['student-setup'],
+      testMatch: /specs\/debug\/.*\.spec\.js/,
+      testDir: '.',
+    },
   ],
 });

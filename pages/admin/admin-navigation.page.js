@@ -45,57 +45,68 @@ class AdminNavigationPage extends BasePage {
 
     // Main navigation methods
     async navigateToMyClassroom() {
+        await this.myClassroomLink.waitFor({ state: 'visible', timeout: 10000 });
         await this.myClassroomLink.click();
         await this.page.waitForLoadState('load');
     }
 
     async navigateToCourses() {
+        await this.coursesLink.waitFor({ state: 'visible', timeout: 10000 });
         await this.coursesLink.click();
         await this.page.waitForLoadState('load');
     }
 
     async navigateToLearningPaths() {
+        await this.learningPathsLink.waitFor({ state: 'visible', timeout: 10000 });
         await this.learningPathsLink.click();
         await this.page.waitForLoadState('load');
     }
 
     async navigateToSkillsAssessments() {
+        await this.skillsAssessmentsLink.waitFor({ state: 'visible', timeout: 10000 });
         await this.skillsAssessmentsLink.click();
         await this.page.waitForLoadState('load');
     }
 
     async navigateToLeaderboard() {
+        await this.leaderboardLink.waitFor({ state: 'visible', timeout: 10000 });
         await this.leaderboardLink.click();
         await this.page.waitForLoadState('load');
     }
 
     async navigateToAdmin() {
+        await this.adminLink.waitFor({ state: 'visible', timeout: 10000 });
         await this.adminLink.click();
         await this.page.waitForLoadState('load');
     }
 
     // Admin sub-navigation methods
     async navigateToDashboard() {
+        await this.dashboardTab.waitFor({ state: 'visible', timeout: 10000 });
         await this.dashboardTab.click();
         await this.page.waitForLoadState('load');
     }
 
     async navigateToSkillsAssessmentsData() {
+        await this.skillsAssessmentsDataTab.waitFor({ state: 'visible', timeout: 10000 });
         await this.skillsAssessmentsDataTab.click();
         await this.page.waitForLoadState('load');
     }
 
     async navigateToDueDates() {
+        await this.dueDatesTab.waitFor({ state: 'visible', timeout: 10000 });
         await this.dueDatesTab.click();
         await this.page.waitForLoadState('load');
     }
 
     async navigateToAddUsers() {
+        await this.addUsersTab.waitFor({ state: 'visible', timeout: 10000 });
         await this.addUsersTab.click();
         await this.page.waitForLoadState('load');
     }
 
     async navigateToManageLearningPaths() {
+        await this.manageLearningPathsTab.waitFor({ state: 'visible', timeout: 10000 });
         await this.manageLearningPathsTab.click();
         await this.page.waitForLoadState('load');
     }

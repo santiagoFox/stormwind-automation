@@ -16,12 +16,15 @@ setup('authenticate as admin', async ({ page }) => {
     await page.getByRole('textbox', { name: 'Password' }).waitFor({ state: 'visible', timeout: 30000 });
     await page.getByRole('textbox', { name: 'Password' }).fill(users.admin.password);
 
-    // Click Log in with force to bypass any overlay
-    await page.getByRole('button', { name: 'Log in' }).click({ force: true });
+    // Click Log in
+    await page.getByRole('button', { name: 'Log in' }).click();
 
-    // Wait for navigation away from login page
-    await page.waitForURL(/.*(?!.*login).*/, { timeout: 30000 });
-    await page.waitForLoadState('load');
+    // Wait for successful login - look for My Classroom link which only appears when logged in
+    await page.getByRole('link', { name: 'My Classroom' }).waitFor({ state: 'visible', timeout: 30000 });
+
+    // Debug: Log cookies after successful login
+    const cookies = await page.context().cookies();
+    console.log('Cookies after login:', cookies.map(c => `${c.name} (httpOnly: ${c.httpOnly})`));
 
     // Save storage state
     await page.context().storageState({ path: adminAuthFile });
