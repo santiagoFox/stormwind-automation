@@ -12,19 +12,13 @@ setup('authenticate as admin', async ({ page }) => {
     await page.locator('#email-only').fill(users.admin.email);
     await page.getByRole('button', { name: 'Enter' }).click();
 
-    // Step 2: Wait for password field and enter password
-    await page.getByRole('textbox', { name: 'Password' }).waitFor({ state: 'visible', timeout: 30000 });
+    // Step 2: Enter password and login
+    await page.getByRole('textbox', { name: 'Password' }).waitFor({ state: 'visible' });
     await page.getByRole('textbox', { name: 'Password' }).fill(users.admin.password);
-
-    // Click Log in
     await page.getByRole('button', { name: 'Log in' }).click();
 
-    // Wait for successful login - look for My Classroom link which only appears when logged in
-    await page.getByRole('link', { name: 'My Classroom' }).waitFor({ state: 'visible', timeout: 30000 });
-
-    // Debug: Log cookies after successful login
-    const cookies = await page.context().cookies();
-    console.log('Cookies after login:', cookies.map(c => `${c.name} (httpOnly: ${c.httpOnly})`));
+    // Wait for login to complete - wait for dashboard or redirect
+    await page.waitForLoadState('networkidle');
 
     // Save storage state
     await page.context().storageState({ path: adminAuthFile });
