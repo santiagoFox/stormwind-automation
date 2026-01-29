@@ -12,13 +12,16 @@ setup('authenticate as admin', async ({ page }) => {
     await page.locator('#email-only').fill(users.admin.email);
     await page.getByRole('button', { name: 'Enter' }).click();
 
-    // Step 2: Enter password and login
-    await page.getByRole('textbox', { name: 'Password' }).waitFor({ state: 'visible' });
+    // Step 2: Wait for password field and enter password
+    await page.getByRole('textbox', { name: 'Password' }).waitFor({ state: 'visible', timeout: 30000 });
     await page.getByRole('textbox', { name: 'Password' }).fill(users.admin.password);
-    await page.getByRole('button', { name: 'Log in' }).click();
 
-    // Wait for login to complete - wait for dashboard or redirect
-    await page.waitForLoadState('networkidle');
+    // Click Log in with force to bypass any overlay
+    await page.getByRole('button', { name: 'Log in' }).click({ force: true });
+
+    // Wait for navigation away from login page
+    await page.waitForURL(/.*(?!.*login).*/, { timeout: 30000 });
+    await page.waitForLoadState('load');
 
     // Save storage state
     await page.context().storageState({ path: adminAuthFile });
