@@ -47,10 +47,11 @@ test.describe('Student - Send Ideas Page', () => {
 
         await newPage.waitForLoadState('load');
 
-        // Verify key elements on the feedback page (using newPage directly)
-        await expect(newPage.getByRole('heading', { name: /Hi there/i })).toBeVisible();
-        await expect(newPage.getByRole('textbox', { name: 'Search...' })).toBeVisible();
-        await expect(newPage.getByRole('link', { name: 'Send Ideas' })).toBeVisible();
+        // Verify key elements on the Featurebase feedback page
+        await expect(newPage.getByRole('heading', { name: /Have something to say/i })).toBeVisible();
+        await expect(newPage.getByRole('button', { name: 'Search' })).toBeVisible();
+        await expect(newPage.getByRole('link', { name: 'Feedback' })).toBeVisible();
+        await expect(newPage.getByRole('button', { name: /Create A New Post/i })).toBeVisible();
 
         // Close the new tab
         await newPage.close();
