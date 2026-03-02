@@ -37,7 +37,7 @@ class AdminSkillsAssessmentsDataPage extends BasePage {
 
         // ========== SKILLS ASSESSMENT DETAILS SECTION ==========
         this.detailsHeading = page.getByRole('heading', { name: 'Skills Assessment Details' });
-        this.searchInput = page.getByRole('textbox', { name: 'Search', exact: true });
+        this.searchInput = page.locator('main').getByRole('textbox', { name: 'Search', exact: true });
 
         // Table headers
         this.skillAssessmentHeader = page.getByRole('columnheader', { name: /Skill Assessment/i });
