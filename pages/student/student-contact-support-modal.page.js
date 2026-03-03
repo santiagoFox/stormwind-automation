@@ -20,6 +20,10 @@ class StudentContactSupportModalPage extends BasePage {
 
         // Sidebar link to open modal
         this.contactSupportLink = page.getByRole('link', { name: ' Contact Support' }).first();
+
+        // Success state - shown after clicking Request
+        this.successMessage = this.modal.getByText('Your support request has been received.');
+        this.resetButton = this.modal.locator('button').filter({ hasText: /reset/i });
     }
 
     async openModal() {
@@ -78,6 +82,10 @@ class StudentContactSupportModalPage extends BasePage {
 
     async expectModalClosed() {
         await this.expectHidden(this.modal);
+    }
+
+    async expectSuccessMessageVisible() {
+        await this.expectVisible(this.successMessage);
     }
 
     /**
