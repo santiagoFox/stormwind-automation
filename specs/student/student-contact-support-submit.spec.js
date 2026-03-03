@@ -7,8 +7,7 @@ test.describe('Student - Contact Support Submit Request', () => {
 
     test('should submit a support request and confirm success message', async ({ studentMyClassroom, studentContactSupportModal }) => {
         // Open modal
-        await studentMyClassroom.navigation.clickContactSupport();
-        await studentContactSupportModal.expectModalVisible();
+        await studentContactSupportModal.openModal();
 
         // Type message and submit
         await studentContactSupportModal.fillMessage('this is an automated testing request');
