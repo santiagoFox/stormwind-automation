@@ -18,8 +18,8 @@ class StudentSkillsAssessmentsPage extends BasePage {
         // Page heading
         this.pageHeading = page.getByText('Explore Stormwind Skills Assessments.');
 
-        // Search input - using the specific ID from HTML
-        this.searchInput = page.locator('input#edit-search-api-fulltext--2, input[placeholder="Search for a skills assessment"]');
+        // Search input - use placeholder to uniquely target the skills assessment search
+        this.searchInput = page.locator('input[placeholder="Search for a skills assessment"]');
 
         // Assessment cards - use the specific card container class
         this.assessmentCards = page.locator('.course-card--condensed');
@@ -89,8 +89,8 @@ class StudentSkillsAssessmentsPage extends BasePage {
         await this.searchInput.fill(assessmentName);
         // Press Enter to trigger search
         await this.searchInput.press('Enter');
-        // Wait for network to settle and loading to complete
-        await this.page.waitForLoadState('networkidle');
+        // Wait for DOM to be ready (networkidle can hang on AJAX search pages)
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**
