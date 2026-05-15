@@ -6,10 +6,7 @@ const URLS = {
     // Admin routes
     ADMIN: {
         DASHBOARD: '/admin/dashboard',
-        COURSES: '/admin/courses',
         DUE_DATES: '/admin/due-dates',
-        ASSESSMENTS: '/admin/assessments',
-        MANAGE_LIBRARY: '/admin/manage-library'
     },
 
     // Student routes

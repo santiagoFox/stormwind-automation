@@ -53,7 +53,7 @@ class AdminDueDatesPage extends BasePage {
      * Navigate to Due Dates page
      */
     async goto() {
-        await this.page.goto('https://test-spectre.pantheonsite.io/team/19126/due-date/145164');
+        await this.page.goto('/team/19126/due-date/145164');
         await this.page.waitForLoadState('load');
     }
 

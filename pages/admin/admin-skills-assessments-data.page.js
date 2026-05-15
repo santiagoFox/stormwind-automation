@@ -54,7 +54,7 @@ class AdminSkillsAssessmentsDataPage extends BasePage {
      * Navigate to Skills Assessments Data page
      */
     async goto() {
-        await this.page.goto('https://test-spectre.pantheonsite.io/team/19126/skills-assessment/145164');
+        await this.page.goto('/team/19126/skills-assessment/145164');
         await this.page.waitForLoadState('load');
     }
 

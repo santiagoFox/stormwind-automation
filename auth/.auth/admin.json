@@ -1,0 +1,165 @@
+{
+  "cookies": [
+    {
+      "name": "_pk_id.1.d028",
+      "value": "adb4afdfc8654d91.1769724548.",
+      "domain": "test-spectre.pantheonsite.io",
+      "path": "/",
+      "expires": 1803679748,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_pk_ses.1.d028",
+      "value": "1",
+      "domain": "test-spectre.pantheonsite.io",
+      "path": "/",
+      "expires": 1769726375,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "CLID",
+      "value": "a3b4fbcb16f24d4a9ca0f4aafcdbfa8a.20260129.20270129",
+      "domain": "www.clarity.ms",
+      "path": "/",
+      "expires": 1801260548.173393,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "_ga",
+      "value": "GA1.1.759002428.1769724548",
+      "domain": ".test-spectre.pantheonsite.io",
+      "path": "/",
+      "expires": 1804284548.300311,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_clck",
+      "value": "12ekykr%5E2%5Eg34%5E0%5E2220",
+      "domain": ".test-spectre.pantheonsite.io",
+      "path": "/",
+      "expires": 1801260548,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "MUID",
+      "value": "243B7B2305D06AD22E416DD304AC6BC4",
+      "domain": ".bing.com",
+      "path": "/",
+      "expires": 1803420550.220832,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1770329350.220877,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SRM_B",
+      "value": "243B7B2305D06AD22E416DD304AC6BC4",
+      "domain": ".c.bing.com",
+      "path": "/",
+      "expires": 1803420550.220893,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SM",
+      "value": "C",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MUID",
+      "value": "243B7B2305D06AD22E416DD304AC6BC4",
+      "domain": ".clarity.ms",
+      "path": "/",
+      "expires": 1803420549.389925,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "MR",
+      "value": "0",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": 1770329349.389994,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "ANONCHK",
+      "value": "0",
+      "domain": ".c.clarity.ms",
+      "path": "/",
+      "expires": 1769725149.390046,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "SSESS6cce5aec6c8b6cd4a97d7b5f66055662",
+      "value": "CMNjwskydDkYZRdbm2YgBR0kKEkuEUUv7rGMol6DLV4",
+      "domain": ".test-spectre.pantheonsite.io",
+      "path": "/",
+      "expires": 1771724549.771541,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_ga_QTN0GRKMKS",
+      "value": "GS2.1.s1769724548$o1$g1$t1769724575$j33$l0$h1683584601",
+      "domain": ".test-spectre.pantheonsite.io",
+      "path": "/",
+      "expires": 1804284575.739171,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_clsk",
+      "value": "16xqwoq%5E1769724576395%5E2%5E1%5Ez.clarity.ms%2Fcollect",
+      "domain": ".test-spectre.pantheonsite.io",
+      "path": "/",
+      "expires": 1769810976,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://test-spectre.pantheonsite.io",
+      "localStorage": [
+        {
+          "name": "NRBA_SESSION",
+          "value": "{\"value\":\"5280de4d58578f6b\",\"inactiveAt\":1769726375827,\"expiresAt\":1769738975827,\"updatedAt\":1769724576108,\"sessionReplayMode\":0,\"sessionReplaySentFirstChunk\":false,\"sessionTraceMode\":1,\"traceHarvestStarted\":true,\"loggingMode\":0,\"logApiMode\":0,\"serverTimeDiff\":-70,\"custom\":{},\"numOfResets\":0,\"consent\":false}"
+        }
+      ]
+    }
+  ]
+}

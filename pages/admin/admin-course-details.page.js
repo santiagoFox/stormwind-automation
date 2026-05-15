@@ -49,7 +49,7 @@ class AdminCourseDetailsPage extends BasePage {
      * Navigate to PL-300 Microsoft Power BI Data Analyst course
      */
     async gotoPL300Course() {
-        await this.goto('https://test-spectre.pantheonsite.io/microsoft-it/microsoft-power-platform/pl-300-microsoft-power-bi-data-analyst#no-back');
+        await this.goto('/microsoft-it/microsoft-power-platform/pl-300-microsoft-power-bi-data-analyst#no-back');
     }
 
     /**

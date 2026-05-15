@@ -35,7 +35,7 @@ class AdminManageLearningPathsPage extends BasePage {
      * Navigate to Manage Learning Paths page
      */
     async goto() {
-        await this.page.goto('https://test-spectre.pantheonsite.io/team/learning-path');
+        await this.page.goto('/team/learning-path');
         await this.page.waitForLoadState('load');
     }
 

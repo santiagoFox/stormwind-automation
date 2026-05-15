@@ -10,16 +10,13 @@ const LoginPage = require('../pages/login.page');
 const {
     AdminNavigationPage,
     AdminDashboardPage,
-    AdminCoursesPage,
     AdminCourseDetailsPage,
     AdminAssignCourseModalPage,
     AdminDueDatesPage,
-    AdminAssessmentsPage,
     AdminSkillsAssessmentsDataPage,
     AdminAddUsersPage,
     AdminManageLearningPathsPage,
     AdminCreateLearningPathPage,
-    AdminManageLibraryPage
 } = require('../pages/admin');
 
 // Page Objects - Student (from student directory)
@@ -77,19 +74,9 @@ const test = base.extend({
         await use(dashboardPage);
     },
 
-    adminCourses: async ({ adminPage }, use) => {
-        const coursesPage = new AdminCoursesPage(adminPage);
-        await use(coursesPage);
-    },
-
     adminDueDates: async ({ adminPage }, use) => {
         const dueDatesPage = new AdminDueDatesPage(adminPage);
         await use(dueDatesPage);
-    },
-
-    adminAssessments: async ({ adminPage }, use) => {
-        const assessmentsPage = new AdminAssessmentsPage(adminPage);
-        await use(assessmentsPage);
     },
 
     adminSkillsAssessmentsData: async ({ adminPage }, use) => {
@@ -110,11 +97,6 @@ const test = base.extend({
     adminCreateLearningPath: async ({ adminPage }, use) => {
         const createLearningPathPage = new AdminCreateLearningPathPage(adminPage);
         await use(createLearningPathPage);
-    },
-
-    adminManageLibrary: async ({ adminPage }, use) => {
-        const manageLibraryPage = new AdminManageLibraryPage(adminPage);
-        await use(manageLibraryPage);
     },
 
     // Admin shared components

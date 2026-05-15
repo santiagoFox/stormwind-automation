@@ -53,7 +53,7 @@ class AdminAddUsersPage extends BasePage {
      * Navigate to Add Users page
      */
     async goto() {
-        await this.page.goto('https://test-spectre.pantheonsite.io/setup/team/145164/invitations?group=19126');
+        await this.page.goto('/setup/team/145164/invitations?group=19126');
         await this.page.waitForLoadState('load');
     }
 
