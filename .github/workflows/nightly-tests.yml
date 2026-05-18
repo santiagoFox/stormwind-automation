@@ -50,9 +50,9 @@ jobs:
           PASSED=$(jq '.stats.expected' results.json)
           FAILED=$(jq '.stats.unexpected' results.json)
           FLAKY=$(jq '.stats.flaky' results.json)
-          DURATION_MS=$(jq '.stats.duration' results.json)
-          MINS=$(( DURATION_MS / 60000 ))
-          SECS=$(( (DURATION_MS % 60000) / 1000 ))
+          DURATION_SECS=$(jq '(.stats.duration / 1000) | floor' results.json)
+          MINS=$(( DURATION_SECS / 60 ))
+          SECS=$(( DURATION_SECS % 60 ))
           SUMMARY="${PASSED} passed"
           [ "$FAILED" -gt 0 ] && SUMMARY="${SUMMARY} · ${FAILED} failed"
           [ "$FLAKY" -gt 0 ] && SUMMARY="${SUMMARY} · ${FLAKY} flaky"
