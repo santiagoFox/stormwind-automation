@@ -23,17 +23,18 @@ class StudentCourseCategoryTabsPage extends BasePage {
         this.breadcrumbCourses = page.locator('#main_container').getByRole('link', { name: 'Courses' });
         this.searchInput = page.getByPlaceholder('What do you want to learn today?');
 
-        // Category tabs row — the subtabs shown below the search box on category detail pages
-        // Clicking each tab should navigate to the respective category page (currently broken)
-        this.categoryTabAll = page.getByRole('tab', { name: /^All$/i });
-        this.categoryTabAI = page.getByRole('tab', { name: /Artificial Intelligence/i });
-        this.categoryTabCloud = page.getByRole('tab', { name: /^Cloud$/i });
-        this.categoryTabCybersecurity = page.getByRole('tab', { name: /^Cybersecurity$/i });
-        this.categoryTabDesktopApps = page.getByRole('tab', { name: /^Desktop Applications$/i });
-        this.categoryTabDevOps = page.getByRole('tab', { name: /^DevOps$/i });
-        this.categoryTabDevelopment = page.getByRole('tab', { name: /^Development$/i });
-        this.categoryTabIT = page.getByRole('tab', { name: /Information Technology/i });
-        this.categoryTabProjectMgmt = page.getByRole('tab', { name: /^Project Management$/i });
+        // Category tabs row — nav.courses-parent-tabs[aria-label="Parent topics"]
+        // Each tab is an <a class="courses-parent-tabs__link"> with data-id matching the /courses/{id} URL
+        this.categoryTabsContainer = page.locator('nav.courses-parent-tabs');
+        this.categoryTabAll = page.locator('a.courses-parent-tabs__link').filter({ hasText: /^All$/ });
+        this.categoryTabAI = page.locator('a.courses-parent-tabs__link').filter({ hasText: 'Artificial Intelligence' });
+        this.categoryTabCloud = page.locator('a.courses-parent-tabs__link').filter({ hasText: /^Cloud$/ });
+        this.categoryTabCybersecurity = page.locator('a.courses-parent-tabs__link').filter({ hasText: /^Cybersecurity$/ });
+        this.categoryTabDesktopApps = page.locator('a.courses-parent-tabs__link').filter({ hasText: 'Desktop Applications' });
+        this.categoryTabDevOps = page.locator('a.courses-parent-tabs__link').filter({ hasText: /^DevOps$/ });
+        this.categoryTabDevelopment = page.locator('a.courses-parent-tabs__link').filter({ hasText: /^Development$/ });
+        this.categoryTabIT = page.locator('a.courses-parent-tabs__link').filter({ hasText: 'Information Technology' });
+        this.categoryTabProjectMgmt = page.locator('a.courses-parent-tabs__link').filter({ hasText: 'Project Management' });
 
         // AI subcategory chips — filter row below the category tabs
         this.chipsContainer = page.locator('ul.topic-card__tags');
@@ -81,6 +82,7 @@ class StudentCourseCategoryTabsPage extends BasePage {
     }
 
     async expectAllCategoryTabsVisible() {
+        await this.expectVisible(this.categoryTabsContainer);
         await this.expectVisible(this.categoryTabAll);
         await this.expectVisible(this.categoryTabAI);
         await this.expectVisible(this.categoryTabCloud);
