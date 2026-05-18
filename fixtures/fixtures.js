@@ -17,6 +17,7 @@ const {
     AdminAddUsersPage,
     AdminManageLearningPathsPage,
     AdminCreateLearningPathPage,
+    AdminCourseCategoryTabsPage,
 } = require('../pages/admin');
 
 // Page Objects - Student (from student directory)
@@ -214,6 +215,11 @@ const test = base.extend({
 
     studentCategoryTabs: async ({ studentPage }, use) => {
         const categoryTabsPage = new StudentCourseCategoryTabsPage(studentPage);
+        await use(categoryTabsPage);
+    },
+
+    adminCategoryTabs: async ({ adminPage }, use) => {
+        const categoryTabsPage = new AdminCourseCategoryTabsPage(adminPage);
         await use(categoryTabsPage);
     }
 });

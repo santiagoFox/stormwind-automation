@@ -8,6 +8,7 @@ const AdminSkillsAssessmentsDataPage = require('./admin-skills-assessments-data.
 const AdminAddUsersPage = require('./admin-add-users.page');
 const AdminManageLearningPathsPage = require('./admin-manage-learning-paths.page');
 const AdminCreateLearningPathPage = require('./admin-create-learning-path.page');
+const AdminCourseCategoryTabsPage = require('./admin-course-category-tabs.page');
 
 module.exports = {
     AdminNavigationPage,
@@ -18,5 +19,6 @@ module.exports = {
     AdminSkillsAssessmentsDataPage,
     AdminAddUsersPage,
     AdminManageLearningPathsPage,
-    AdminCreateLearningPathPage
+    AdminCreateLearningPathPage,
+    AdminCourseCategoryTabsPage
 };
