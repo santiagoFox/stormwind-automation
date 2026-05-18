@@ -8,12 +8,17 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
 
     steps:
     - name: Checkout code
@@ -65,12 +70,20 @@ jobs:
         path: playwright-report/
         retention-days: 30
 
-    - name: Deploy report to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+      if: always()
+
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v3
       if: always()
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./playwright-report
+        path: playwright-report/
+
+    - name: Deploy to GitHub Pages
+      id: deploy
+      uses: actions/deploy-pages@v4
+      if: always()
 
     - name: Notify Slack
       if: always()
@@ -78,12 +91,13 @@ jobs:
       with:
         payload: |
           {
+            "text": "${{ steps.playwright.outcome == 'success' && '✅' || '❌' }} Nightly LMS Tests — ${{ steps.results.outputs.summary }}",
             "blocks": [
               {
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "${{ steps.playwright.outcome == 'success' && '✅' || '❌' }} *Nightly LMS Tests* — StormWind\n${{ steps.results.outputs.summary }}\n<https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/|📊 View HTML Report>  ·  <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Run>"
+                  "text": "${{ steps.playwright.outcome == 'success' && '✅' || '❌' }} *Nightly LMS Tests* — StormWind\n${{ steps.results.outputs.summary }}\n<${{ steps.deploy.outputs.page_url }}|📊 View HTML Report>  ·  <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Run>"
                 }
               }
             ]
