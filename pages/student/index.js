@@ -17,6 +17,7 @@ const StudentLiveCourseCalendarPage = require('./student-live-course-calendar.pa
 const StudentLiveScheduleModalPage = require('./student-live-schedule-modal.page');
 const StudentContactSupportModalPage = require('./student-contact-support-modal.page');
 const StudentSendIdeasPage = require('./student-send-ideas.page');
+const StudentCourseCategoryTabsPage = require('./student-course-category-tabs.page');
 
 module.exports = {
     // Shared components
@@ -38,5 +39,6 @@ module.exports = {
     StudentLiveCourseCalendarPage,
     StudentLiveScheduleModalPage,
     StudentContactSupportModalPage,
-    StudentSendIdeasPage
+    StudentSendIdeasPage,
+    StudentCourseCategoryTabsPage
 };

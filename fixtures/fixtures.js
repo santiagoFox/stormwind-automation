@@ -37,7 +37,8 @@ const {
     StudentLiveCourseCalendarPage,
     StudentLiveScheduleModalPage,
     StudentContactSupportModalPage,
-    StudentSendIdeasPage
+    StudentSendIdeasPage,
+    StudentCourseCategoryTabsPage
 } = require('../pages/student');
 
 /**
@@ -209,6 +210,11 @@ const test = base.extend({
     studentSendIdeas: async ({ studentPage }, use) => {
         const sendIdeasPage = new StudentSendIdeasPage(studentPage);
         await use(sendIdeasPage);
+    },
+
+    studentCategoryTabs: async ({ studentPage }, use) => {
+        const categoryTabsPage = new StudentCourseCategoryTabsPage(studentPage);
+        await use(categoryTabsPage);
     }
 });
 
