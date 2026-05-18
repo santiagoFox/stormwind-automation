@@ -6,9 +6,11 @@ const StudentNavigationPage = require('./student-navigation.page');
  * URL: /courses/170334 (Artificial Intelligence (AI) category)
  *
  * Two interactive rows appear below the search box:
- * Row 1 - Category tabs (CURRENTLY BROKEN):
+ * Row 1 - Category tabs (12 total, scrollable via chevron buttons):
  *   All, Artificial Intelligence (AI), Cloud, Cybersecurity, Desktop Applications,
- *   DevOps, Development, Information Technology (IT), Project Management
+ *   DevOps, Development, Information Technology (IT), Project Management,
+ *   Ranges, Security Awareness, Skills Assessments
+ *   Scroll controls: button.courses-parent-tabs__arrow--left/right (inactive class when at limit)
  * Row 2 - AI subcategory chips:
  *   All, ChatGPT, Development, Microsoft Copilot, Project Management, Webinars
  */
@@ -35,6 +37,16 @@ class StudentCourseCategoryTabsPage extends BasePage {
         this.categoryTabDevelopment = page.locator('a.courses-parent-tabs__link').filter({ hasText: /^Development$/ });
         this.categoryTabIT = page.locator('a.courses-parent-tabs__link').filter({ hasText: 'Information Technology' });
         this.categoryTabProjectMgmt = page.locator('a.courses-parent-tabs__link').filter({ hasText: 'Project Management' });
+        this.categoryTabRanges = page.locator('a.courses-parent-tabs__link').filter({ hasText: /^Ranges$/ });
+        this.categoryTabSecurityAwareness = page.locator('a.courses-parent-tabs__link').filter({ hasText: 'Security Awareness' });
+        this.categoryTabSkillsAssessments = page.locator('a.courses-parent-tabs__link').filter({ hasText: 'Skills Assessments' });
+
+        // Scroll chevron buttons — include :not(.inactive) variants for actionability checks
+        this.scrollRightButton = page.locator('button.courses-parent-tabs__arrow--right[aria-label="Scroll right"]');
+        this.scrollLeftButton = page.locator('button.courses-parent-tabs__arrow--left[aria-label="Scroll left"]');
+        // Active-only variants: only match when the button does not have the inactive class
+        this.scrollRightButtonActive = page.locator('button.courses-parent-tabs__arrow--right:not(.inactive)');
+        this.scrollLeftButtonActive = page.locator('button.courses-parent-tabs__arrow--left:not(.inactive)');
 
         // AI subcategory chips — filter row below the category tabs
         this.chipsContainer = page.locator('ul.topic-card__tags');
@@ -66,6 +78,26 @@ class StudentCourseCategoryTabsPage extends BasePage {
         await this.page.waitForLoadState('load');
     }
 
+    async clickScrollRight() {
+        await this.scrollRightButtonActive.dispatchEvent('click');
+    }
+
+    async clickScrollLeft() {
+        await this.scrollLeftButtonActive.dispatchEvent('click');
+    }
+
+    // Scroll right until the right chevron becomes inactive (fully scrolled to end).
+    // Waits after each click for the scroll animation and inactive-class update to settle.
+    async scrollToEnd() {
+        for (let i = 0; i < 5; i++) {
+            if (await this.page.locator('button.courses-parent-tabs__arrow--right:not(.inactive)').count() === 0) break;
+            await this.scrollRightButtonActive.dispatchEvent('click');
+            await this.page.locator('button.courses-parent-tabs__arrow--right.inactive')
+                .waitFor({ state: 'attached', timeout: 3000 })
+                .catch(() => {}); // not yet at end — continue scrolling
+        }
+    }
+
     // --- Assertions ---
 
     async expectPageHeading(heading) {
@@ -81,6 +113,18 @@ class StudentCourseCategoryTabsPage extends BasePage {
         await this.expectVisible(this.searchInput);
     }
 
+    async expectScrollRightVisible() {
+        await this.expectVisible(this.scrollRightButton);
+    }
+
+    async expectScrollRightInactive() {
+        await this.page.locator('button.courses-parent-tabs__arrow--right.inactive').waitFor({ state: 'attached', timeout: 5000 });
+    }
+
+    async expectScrollLeftInactive() {
+        await this.page.locator('button.courses-parent-tabs__arrow--left.inactive').waitFor({ state: 'attached', timeout: 5000 });
+    }
+
     async expectAllCategoryTabsVisible() {
         await this.expectVisible(this.categoryTabsContainer);
         await this.expectVisible(this.categoryTabAll);
@@ -92,6 +136,9 @@ class StudentCourseCategoryTabsPage extends BasePage {
         await this.expectVisible(this.categoryTabDevelopment);
         await this.expectVisible(this.categoryTabIT);
         await this.expectVisible(this.categoryTabProjectMgmt);
+        await this.expectVisible(this.categoryTabRanges);
+        await this.expectVisible(this.categoryTabSecurityAwareness);
+        await this.expectVisible(this.categoryTabSkillsAssessments);
     }
 
     async expectAllAIChipsVisible() {
