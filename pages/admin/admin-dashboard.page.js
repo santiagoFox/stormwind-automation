@@ -61,9 +61,8 @@ class AdminDashboardPage extends BasePage {
         // Status dropdown
         this.statusDropdown = page.locator('select').filter({ hasText: /Active|Inactive/i });
 
-        // + Add User button (actually an <a> tag)
-        // <a class="btn btn-rounded btn-primary btn-md" href="/setup/team/.../invitations?group=...">
-        this.addUserBtn = page.locator('a[href*="invitations?group="]');
+        // + Add User button in Student Info section (scoped to avoid matching sub-nav Add Users link)
+        this.addUserBtn = page.locator('a.btn-add-user');
 
         // Student table
         this.studentTable = page.locator('table').first();
