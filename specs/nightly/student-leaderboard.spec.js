@@ -36,25 +36,33 @@ test.describe('Student - Leaderboard Page', () => {
         // 8. Validate table has data rows
         await studentLeaderboard.expectTableHasRows();
 
-        // 9. Click Export Chart button to open modal
+        // 9. Validate all 5 time period filter tabs are visible
+        await studentLeaderboard.expectFilterTabsVisible();
+
+        // 10. Validate switching filter tabs stays on leaderboard
+        await studentLeaderboard.clickFilterTab(studentLeaderboard.last30DaysTab);
+        expect(studentLeaderboard.page.url()).toContain('leaderboard');
+        await studentLeaderboard.clickFilterTab(studentLeaderboard.allTimeTab);
+
+        // 11. Click Export Chart button to open modal
         await studentLeaderboard.clickExportChart();
 
-        // 10. Validate Export modal is visible
+        // 12. Validate Export modal is visible
         await studentLeaderboard.expectExportModalVisible();
 
-        // 11. Validate Export modal title is visible
+        // 13. Validate Export modal title is visible
         await studentLeaderboard.expectExportModalTitleVisible();
 
-        // 12. Validate Export modal close button is visible
+        // 14. Validate Export modal close button is visible
         await studentLeaderboard.expectExportModalCloseBtnVisible();
 
-        // 13. Close the Export modal
+        // 15. Close the Export modal
         await studentLeaderboard.closeExportModal();
 
-        // 14. Verify Export modal is closed
+        // 16. Verify Export modal is closed
         await studentLeaderboard.expectExportModalHidden();
 
-        // 15. Validate footer with all links
+        // 17. Validate footer with all links
         await studentLeaderboard.expectAllFooterLinksVisible();
     });
 

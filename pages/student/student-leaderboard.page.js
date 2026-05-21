@@ -50,6 +50,13 @@ class StudentLeaderboardPage extends BasePage {
         // Table rows
         this.tableRows = page.locator('table tbody tr');
 
+        // Time period filter tabs (rendered as <a class="btn"> elements)
+        this.allTimeTab = page.locator('a.btn').filter({ hasText: 'All Time' });
+        this.oneYearTab = page.locator('a.btn').filter({ hasText: '1 Year' });
+        this.last30DaysTab = page.locator('a.btn').filter({ hasText: 'Last 30 Days' });
+        this.last7DaysTab = page.locator('a.btn').filter({ hasText: 'Last 7 Days' });
+        this.last24hTab = page.locator('a.btn').filter({ hasText: 'Last 24h' });
+
         // Pagination
         this.nextPageLink = page.getByRole('link', { name: /next/i });
         this.lastPageLink = page.getByRole('link', { name: /last/i });
@@ -221,6 +228,23 @@ class StudentLeaderboardPage extends BasePage {
         if (rowCount === 0) {
             throw new Error('No table rows found');
         }
+    }
+
+    /**
+     * Assert all time period filter tabs are visible
+     */
+    async expectFilterTabsVisible() {
+        await this.expectVisible(this.allTimeTab);
+        await this.expectVisible(this.oneYearTab);
+        await this.expectVisible(this.last30DaysTab);
+        await this.expectVisible(this.last7DaysTab);
+        await this.expectVisible(this.last24hTab);
+    }
+
+    // REUSE_METHOD: clickFilterTab
+    async clickFilterTab(tab) {
+        await tab.click();
+        await this.page.waitForLoadState('networkidle');
     }
 
     /**

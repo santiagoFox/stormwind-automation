@@ -23,6 +23,18 @@ class StudentMyClassroomPage extends BasePage {
         this.learningPathsTab = page.getByRole('tab', { name: 'Learning Paths' });
         this.skillsAssessmentTab = page.getByRole('tab', { name: 'Skills Assessment' });
 
+        // Featured course card (top of page)
+        this.featuredResumeBtn = page.getByRole('link', { name: /RESUME/i }).first();
+        this.featuredSeeDetailsBtn = page.getByRole('link', { name: /SEE COURSE DETAILS/i }).first();
+
+        // Filter pills
+        this.allFilterPill = page.getByRole('button', { name: /^All/i }).first();
+        this.inProgressFilterPill = page.getByRole('button', { name: /In progress/i }).first();
+        this.completedFilterPill = page.getByRole('button', { name: /^Completed/i }).first();
+
+        // Overdue badge (visible on overdue course cards)
+        this.overdueBadge = page.locator('.deadline-badge--overdue').first();
+
         // Course content
         this.coursesList = page.locator('.courses-list');
         this.courseCards = page.locator('.course-card');
@@ -77,6 +89,30 @@ class StudentMyClassroomPage extends BasePage {
         await this.expectVisible(this.coursesTab);
         await this.expectVisible(this.learningPathsTab);
         await this.expectVisible(this.skillsAssessmentTab);
+    }
+
+    async expectFeaturedCourseCardVisible() {
+        await this.expectVisible(this.featuredResumeBtn);
+        await this.expectVisible(this.featuredSeeDetailsBtn);
+    }
+
+    async expectFilterPillsVisible() {
+        await this.expectVisible(this.allFilterPill);
+        await this.expectVisible(this.inProgressFilterPill);
+        await this.expectVisible(this.completedFilterPill);
+    }
+
+    // REUSE_METHOD: clickInProgressFilter
+    async clickInProgressFilter() {
+        await this.inProgressFilterPill.click();
+    }
+
+    async clickCompletedFilter() {
+        await this.completedFilterPill.click();
+    }
+
+    async expectOverdueBadgeVisible() {
+        await this.expectVisible(this.overdueBadge);
     }
 
     // Convenience methods that delegate to composed components

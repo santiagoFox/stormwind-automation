@@ -9,11 +9,10 @@ const URLS = {
         DUE_DATES: '/admin/due-dates',
     },
 
-    // Student routes
+    // Student routes — My Classroom and Leaderboard use dynamic user-specific URLs,
+    // navigate via nav links rather than direct URL
     STUDENT: {
-        DASHBOARD: '/student/dashboard',
-        MY_CLASSROOM: '/student/my-classroom',
-        LEADERBOARD: '/student/leaderboard'
+        SKILLS_ASSESSMENTS: '/skillsassessment',
     }
 };
 
