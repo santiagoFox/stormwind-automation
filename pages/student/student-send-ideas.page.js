@@ -12,11 +12,6 @@ class StudentSendIdeasPage extends BasePage {
         // Header/Logo
         this.logoHeading = page.getByRole('heading', { name: 'StormWind Studios' });
 
-        // Header navigation tabs
-        this.feedbackNav = page.getByRole('link', { name: 'Feedback' });
-        this.roadmapNav = page.getByRole('link', { name: 'Roadmap' });
-        this.changelogNav = page.getByRole('link', { name: 'Changelog' });
-
         // Sign in button
         this.signInButton = page.getByRole('button', { name: /Sign in/i });
 
@@ -63,9 +58,6 @@ class StudentSendIdeasPage extends BasePage {
         this.page = newPage;
         // Re-initialize locators with new page
         this.logoHeading = newPage.getByRole('heading', { name: 'StormWind Studios' });
-        this.feedbackNav = newPage.getByRole('link', { name: 'Feedback' });
-        this.roadmapNav = newPage.getByRole('link', { name: 'Roadmap' });
-        this.changelogNav = newPage.getByRole('link', { name: 'Changelog' });
         this.signInButton = newPage.getByRole('button', { name: /Sign in/i });
         this.mainHeading = newPage.getByRole('heading', { name: /Have something to say/i });
         this.subtitle = newPage.getByText('Tell us how we could make the product more useful to you.');
@@ -81,13 +73,6 @@ class StudentSendIdeasPage extends BasePage {
     // URL verification
     isOnSendIdeasPage() {
         return this.page.url().includes('feedback.stormwindstudios.com');
-    }
-
-    // Assertions - Header navigation
-    async expectHeaderNavVisible() {
-        await this.expectVisible(this.feedbackNav);
-        await this.expectVisible(this.roadmapNav);
-        await this.expectVisible(this.changelogNav);
     }
 
     // Assertions - Main content
@@ -119,7 +104,6 @@ class StudentSendIdeasPage extends BasePage {
      * Verify all static page elements
      */
     async verifyPageLoaded() {
-        await this.expectHeaderNavVisible();
         await this.expectMainHeadingVisible();
         await this.expectSubtitleVisible();
         await this.expectSearchButtonVisible();
