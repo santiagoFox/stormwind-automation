@@ -143,6 +143,50 @@ class StudentLearningPathsPage extends BasePage {
         await this.searchInput.clear();
     }
 
+    /**
+     * Press Enter key in the search input to trigger filtering
+     */
+    async pressEnterInSearch() {
+        await this.searchInput.press('Enter');
+    }
+
+    /**
+     * Select the first available option from the Topic multiselect dropdown
+     */
+    async selectFirstAvailableTopicOption() {
+        await this.topicDropdown.click();
+        const firstOption = this.page.locator('.multiselect__element').first();
+        await firstOption.waitFor({ state: 'visible' });
+        await firstOption.click();
+    }
+
+    /**
+     * Clear the topic filter by deselecting the active option
+     */
+    async clearTopicFilter() {
+        await this.topicDropdown.click();
+        const selectedOption = this.page.locator('.multiselect__option--selected').first();
+        if (await selectedOption.count() > 0 && await selectedOption.isVisible()) {
+            await selectedOption.click();
+        }
+        await this.page.keyboard.press('Escape');
+    }
+
+    /**
+     * Select a path size option by index (0 = All/default)
+     * @param {number} index
+     */
+    async selectPathSizeOption(index) {
+        await this.pathSizeDropdown.selectOption({ index });
+    }
+
+    /**
+     * Reset path size filter to "All" (first/default option)
+     */
+    async resetPathSizeFilter() {
+        await this.pathSizeDropdown.selectOption({ index: 0 });
+    }
+
     // --- Learning Path Card Methods ---
 
     /**

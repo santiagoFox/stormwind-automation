@@ -47,15 +47,23 @@ test.describe('Admin - Create Learning Path Page', () => {
         // 11. Validate Select Groups dropdown is visible
         await adminCreateLearningPath.expectSelectGroupsDropdownVisible();
 
-        // 12. Validate tabs are visible
-        // - Learning Path tab
-        // - Students tab
+        // 12. Validate tabs are visible and functional
         await adminCreateLearningPath.expectTabsVisible();
 
-        // 13. Validate course search section is visible
-        // - Search input
-        // - Empty state message
+        // Click Students tab and verify it becomes active
+        await adminCreateLearningPath.clickStudentsTab();
+        await adminCreateLearningPath.expectStudentsTabActive();
+
+        // Switch back to Learning Path tab
+        await adminCreateLearningPath.clickLearningPathTab();
+        await adminCreateLearningPath.expectLearningPathTabActive();
+
+        // 13. Validate course search section initial state (input visible, empty state message visible)
         await adminCreateLearningPath.expectCourseSearchSectionVisible();
+
+        // Search for a course and verify results appear (empty state message should disappear)
+        await adminCreateLearningPath.searchCourse('test');
+        await adminCreateLearningPath.expectCourseResultsVisible();
 
         // 14. Validate stats are visible
         // - 0 course(s)

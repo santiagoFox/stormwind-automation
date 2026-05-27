@@ -72,6 +72,32 @@ class AdminCreateLearningPathPage extends BasePage {
     }
 
     /**
+     * Type a search term in the course search input and press Enter
+     * @param {string} term
+     */
+    async searchCourse(term) {
+        await this.courseSearchInput.fill(term);
+        await this.courseSearchInput.press('Enter');
+        await this.page.waitForTimeout(1000);
+    }
+
+    /**
+     * Click the Students tab
+     */
+    async clickStudentsTab() {
+        await this.studentsTab.click();
+        await this.page.waitForTimeout(500);
+    }
+
+    /**
+     * Click the Learning Path tab
+     */
+    async clickLearningPathTab() {
+        await this.learningPathTab.click();
+        await this.page.waitForTimeout(500);
+    }
+
+    /**
      * Click Cancel button to go back
      */
     async clickCancel() {
@@ -157,11 +183,33 @@ class AdminCreateLearningPathPage extends BasePage {
     }
 
     /**
-     * Assert course search section is visible
+     * Assert course search section is visible (initial empty state)
      */
     async expectCourseSearchSectionVisible() {
         await this.expectVisible(this.courseSearchInput);
         await this.expectVisible(this.emptyStateMessage);
+    }
+
+    /**
+     * Assert course search returned results — at least one "Add" link is visible
+     */
+    async expectCourseResultsVisible() {
+        const firstResult = this.page.getByRole('link', { name: 'Add' }).first();
+        await this.expectVisible(firstResult);
+    }
+
+    /**
+     * Assert Students tab is active — LP course search panel is hidden when Students tab is shown
+     */
+    async expectStudentsTabActive() {
+        await this.expectHidden(this.courseSearchInput);
+    }
+
+    /**
+     * Assert Learning Path tab is active — course search panel is visible again
+     */
+    async expectLearningPathTabActive() {
+        await this.expectVisible(this.courseSearchInput);
     }
 
     /**
