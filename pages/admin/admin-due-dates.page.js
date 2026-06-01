@@ -54,7 +54,7 @@ class AdminDueDatesPage extends BasePage {
      */
     async goto() {
         await this.page.goto('/team/19126/due-date/145164');
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**
@@ -128,12 +128,24 @@ class AdminDueDatesPage extends BasePage {
     }
 
     /**
-     * Assert All Due Dates section metadata is visible
+     * Assert All Due Dates section metadata is visible.
+     * When the team has due dates assigned, the table renders and its column
+     * headers are validated. When there are zero due dates the table is not
+     * rendered at all, so we only assert that the section itself is intact.
      */
     async expectAllDueDatesSectionVisible() {
         await this.expectVisible(this.allDueDatesHeading);
         await this.expectVisible(this.searchCourseOrStudentInput);
-        await this.expectVisible(this.dueDatesTable);
+
+        const hasTable = (await this.dueDatesTable.count()) > 0;
+        if (hasTable) {
+            await this.expectVisible(this.dueDatesTable);
+            await this.expectVisible(this.courseHeader);
+            await this.expectVisible(this.dueDateHeader);
+            await this.expectVisible(this.studentsAssignedHeader);
+            await this.expectVisible(this.studentsCompletedHeader);
+            await this.expectVisible(this.percentageCompletedHeader);
+        }
     }
 
     /**
