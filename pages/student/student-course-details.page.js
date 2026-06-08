@@ -72,7 +72,7 @@ class StudentCourseDetailsPage extends BasePage {
      */
     async goto(url = 'https://test-spectre.pantheonsite.io/stormwind-developer/ai-and-chatgpt/coding-ai-copilot') {
         await this.page.goto(url);
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**
@@ -94,7 +94,7 @@ class StudentCourseDetailsPage extends BasePage {
      */
     async clickStartButton() {
         await this.startBtn.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**

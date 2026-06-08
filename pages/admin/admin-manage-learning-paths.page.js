@@ -36,7 +36,7 @@ class AdminManageLearningPathsPage extends BasePage {
      */
     async goto() {
         await this.page.goto('/team/learning-path');
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**

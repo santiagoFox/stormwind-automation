@@ -71,18 +71,18 @@ class AdminCourseCategoryTabsPage extends BasePage {
     // REUSE_METHOD: gotoAICategory
     async gotoAICategory() {
         await this.page.goto('/courses/170334');
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickCategoryTab(tabLocator) {
         await tabLocator.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickChip(chipName) {
         const chip = this.page.locator('li.topic-card__tag').filter({ hasText: chipName });
         await chip.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickScrollRight() {

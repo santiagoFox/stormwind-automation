@@ -42,7 +42,7 @@ class AdminCourseDetailsPage extends BasePage {
      */
     async goto(url) {
         await this.page.goto(url);
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**

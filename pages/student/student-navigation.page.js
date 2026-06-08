@@ -31,7 +31,7 @@ class StudentNavigationPage extends BasePage {
     // Navigation methods - Main tabs
     async navigateToMyClassroom() {
         await this.myClassroomLink.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToCourses() {
@@ -41,43 +41,43 @@ class StudentNavigationPage extends BasePage {
 
     async navigateToLearningPaths() {
         await this.learningPathsLink.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToSkillsAssessments() {
         await this.skillsAssessmentsLink.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToLeaderboard() {
         await this.leaderboardLink.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     // Sidebar navigation methods
     async clickWebinars() {
         await this.sidebarWebinars.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickNewsletter() {
         await this.sidebarNewsletter.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickLiveCourseCalendar() {
         await this.sidebarLiveCourseCalendar.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickContactSupport() {
         await this.sidebarContactSupport.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickSendIdeas() {
         await this.sidebarSendIdeas.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickMyLiveSchedule() {

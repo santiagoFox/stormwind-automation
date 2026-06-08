@@ -16,7 +16,7 @@ class BasePage {
     }
 
     async waitForPageLoad() {
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async getCurrentUrl() {

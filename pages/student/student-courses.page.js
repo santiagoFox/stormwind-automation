@@ -81,7 +81,7 @@ class StudentCoursesPage extends BasePage {
     async clickTopicCard(topicName) {
         const topicLink = this.page.locator(`.topic-card__title a:has-text("${topicName}")`);
         await topicLink.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**
@@ -89,7 +89,7 @@ class StudentCoursesPage extends BasePage {
      */
     async clickAITopic() {
         await this.topicAI.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     // --- Assertions ---

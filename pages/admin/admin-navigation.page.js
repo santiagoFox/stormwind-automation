@@ -46,65 +46,65 @@ class AdminNavigationPage extends BasePage {
     // Main navigation methods
     async navigateToMyClassroom() {
         await this.myClassroomLink.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToCourses() {
         await this.coursesLink.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToLearningPaths() {
         await this.learningPathsLink.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToSkillsAssessments() {
         await this.skillsAssessmentsLink.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToLeaderboard() {
         await this.leaderboardLink.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToAdmin() {
         await this.adminLink.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     // Admin sub-navigation methods
     async navigateToDashboard() {
         await this.dashboardTab.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToSkillsAssessmentsData() {
         await this.skillsAssessmentsDataTab.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToDueDates() {
         await this.dueDatesTab.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToAddUsers() {
         await this.addUsersTab.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateToManageLearningPaths() {
         await this.manageLearningPathsTab.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     // Search functionality
     async searchForCourse(courseName) {
         await this.searchInput.fill(courseName);
         await this.searchButton.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     // Assertions - Main navigation

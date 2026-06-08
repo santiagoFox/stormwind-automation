@@ -57,7 +57,7 @@ const test = base.extend({
         const loginPage = new LoginPage(page);
         await page.goto(URLS.LOGIN);
         await loginPage.login(users.admin.email, users.admin.password);
-        await page.waitForLoadState('load');
+        await page.waitForLoadState('domcontentloaded');
         await use(page);
     },
 
@@ -66,7 +66,7 @@ const test = base.extend({
         const loginPage = new LoginPage(page);
         await page.goto(URLS.LOGIN);
         await loginPage.login(users.student.email, users.student.password);
-        await page.waitForLoadState('load');
+        await page.waitForLoadState('domcontentloaded');
         await use(page);
     },
 

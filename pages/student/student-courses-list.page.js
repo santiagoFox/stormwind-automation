@@ -79,7 +79,7 @@ class StudentCoursesListPage extends BasePage {
     async clickChip(chipName) {
         const chip = this.page.locator('li.topic-card__tag').filter({ hasText: chipName });
         await chip.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**
@@ -87,7 +87,7 @@ class StudentCoursesListPage extends BasePage {
      */
     async clickAllChip() {
         await this.chipAll.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**
@@ -95,7 +95,7 @@ class StudentCoursesListPage extends BasePage {
      */
     async clickPaloAltoChip() {
         await this.chipPaloAlto.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**
@@ -141,7 +141,7 @@ class StudentCoursesListPage extends BasePage {
     async clickCourseCard(courseTitle) {
         const card = this.page.locator('.course-card, [class*="course-card"]').filter({ hasText: courseTitle });
         await card.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**

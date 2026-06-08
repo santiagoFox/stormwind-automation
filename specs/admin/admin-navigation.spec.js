@@ -11,7 +11,7 @@ test.describe('Admin - Navigation Tests', () => {
     test('should validate main nav, admin sub-nav tabs, and tab navigation', async ({ adminNavigation, adminPage }) => {
         // Start on Dashboard so admin sub-nav is visible
         await adminPage.goto('/team/19126/reporting/145164');
-        await adminPage.waitForLoadState('load');
+        await adminPage.waitForLoadState('domcontentloaded');
 
         // STEP 1: Validate main navigation tabs are visible
         await adminNavigation.expectMainNavVisible();
@@ -41,7 +41,7 @@ test.describe('Admin - Navigation Tests', () => {
 
         // STEP 8: Return to Dashboard and validate main nav links still visible
         await adminPage.goto('/team/19126/reporting/145164');
-        await adminPage.waitForLoadState('load');
+        await adminPage.waitForLoadState('domcontentloaded');
         await adminNavigation.expectMainNavVisible();
 
         // STEP 9: Navigate to My Classroom via main nav and verify URL
@@ -50,25 +50,25 @@ test.describe('Admin - Navigation Tests', () => {
 
         // STEP 10: Navigate to Courses via main nav and verify URL
         await adminPage.goto('/team/19126/reporting/145164');
-        await adminPage.waitForLoadState('load');
+        await adminPage.waitForLoadState('domcontentloaded');
         await adminNavigation.navigateToCourses();
         expect(adminPage.url()).toContain('/topics');
 
         // STEP 11: Navigate to Learning Paths via main nav and verify URL
         await adminPage.goto('/team/19126/reporting/145164');
-        await adminPage.waitForLoadState('load');
+        await adminPage.waitForLoadState('domcontentloaded');
         await adminNavigation.navigateToLearningPaths();
         expect(adminPage.url()).toContain('/learningpaths');
 
         // STEP 12: Navigate to Skills Assessments via main nav and verify URL
         await adminPage.goto('/team/19126/reporting/145164');
-        await adminPage.waitForLoadState('load');
+        await adminPage.waitForLoadState('domcontentloaded');
         await adminNavigation.navigateToSkillsAssessments();
         expect(adminPage.url()).toContain('/skillsassessment');
 
         // STEP 13: Navigate to Leaderboard via main nav and verify URL
         await adminPage.goto('/team/19126/reporting/145164');
-        await adminPage.waitForLoadState('load');
+        await adminPage.waitForLoadState('domcontentloaded');
         await adminNavigation.navigateToLeaderboard();
         expect(adminPage.url()).toContain('leaderboard');
     });

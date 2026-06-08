@@ -40,54 +40,54 @@ class StudentFooterPage extends BasePage {
     // EXPLORE section navigation
     async clickExploreCourses() {
         await this.exploreCourses.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickExploreLearningPaths() {
         await this.exploreLearningPaths.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickExploreSkillAssessments() {
         await this.exploreSkillAssessments.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickExploreWebinars() {
         await this.exploreWebinars.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickExploreLiveCourseCalendar() {
         await this.exploreLiveCourseCalendar.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     // CONTACT section navigation
     async clickContactSupport() {
         await this.contactSupport.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickContactSendIdeas() {
         await this.contactSendIdeas.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickContactNewsletter() {
         await this.contactNewsletter.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     // ABOUT section navigation
     async clickAboutTermsOfUse() {
         await this.aboutTermsOfUse.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickAboutPrivacyPolicy() {
         await this.aboutPrivacyPolicy.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     // Assertions - EXPLORE section

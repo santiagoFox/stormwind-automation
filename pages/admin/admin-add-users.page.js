@@ -54,7 +54,7 @@ class AdminAddUsersPage extends BasePage {
      */
     async goto() {
         await this.page.goto('/setup/team/145164/invitations?group=19126');
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**

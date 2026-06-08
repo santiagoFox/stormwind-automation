@@ -55,7 +55,7 @@ class AdminSkillsAssessmentsDataPage extends BasePage {
      */
     async goto() {
         await this.page.goto('/team/19126/skills-assessment/145164');
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**

@@ -45,7 +45,7 @@ test.describe('Student - Send Ideas Page', () => {
             sendIdeasLink.click()
         ]);
 
-        await newPage.waitForLoadState('load');
+        await newPage.waitForLoadState('domcontentloaded');
 
         // Verify key elements on the Featurebase feedback page
         await expect(newPage.getByRole('heading', { name: /Have something to say/i })).toBeVisible();

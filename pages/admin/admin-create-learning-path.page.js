@@ -59,7 +59,7 @@ class AdminCreateLearningPathPage extends BasePage {
      */
     async goto() {
         await this.page.goto('/team/learning-path/create');
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**
@@ -102,7 +102,7 @@ class AdminCreateLearningPathPage extends BasePage {
      */
     async clickCancel() {
         await this.cancelBtn.click();
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**

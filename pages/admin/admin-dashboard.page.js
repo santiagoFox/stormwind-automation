@@ -78,7 +78,7 @@ class AdminDashboardPage extends BasePage {
      */
     async goto() {
         await this.page.goto('/team/19126/reporting/145164');
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**

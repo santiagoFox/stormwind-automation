@@ -76,7 +76,7 @@ class StudentCourseLessonsPage extends BasePage {
      */
     async goto(url = 'https://test-spectre.pantheonsite.io/replay/106477/course-overview') {
         await this.page.goto(url);
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     /**

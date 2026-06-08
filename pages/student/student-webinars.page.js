@@ -31,7 +31,7 @@ class StudentWebinarsPage extends BasePage {
 
     async goto() {
         await this.page.goto('/webinar');
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navigateFromSidebar() {
@@ -42,7 +42,7 @@ class StudentWebinarsPage extends BasePage {
     async searchWebinar(searchTerm) {
         await this.searchInput.fill(searchTerm);
         await this.searchInput.press('Enter');
-        await this.page.waitForLoadState('load');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clearSearch() {

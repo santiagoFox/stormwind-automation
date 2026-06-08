@@ -14,7 +14,7 @@ test.describe('Admin - Create Learning Path Page', () => {
 
         // 2. Click CREATE PATH button
         await adminManageLearningPaths.createPathBtn.click();
-        await adminCreateLearningPath.page.waitForLoadState('load');
+        await adminCreateLearningPath.page.waitForLoadState('domcontentloaded');
 
         // 3. Validate we're on the correct URL
         const isCorrectURL = await adminCreateLearningPath.isOnCorrectURL();
