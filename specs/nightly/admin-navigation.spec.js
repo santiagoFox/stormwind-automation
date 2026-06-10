@@ -1,58 +1,77 @@
 const { test, expect } = require('../../fixtures/fixtures');
 
-test.describe('Admin - Navigation', () => {
+/**
+ * Admin - Navigation Tests
+ * Validates the main navigation bar and admin sub-navigation tabs
+ * for the manager/admin role.
+ * All validations run in a single test to avoid multiple logins.
+ */
+test.describe('Admin - Navigation Tests', () => {
 
-    test('should display main nav and admin sub-nav on dashboard', async ({ adminDashboard, adminNavigation }) => {
-        // STEP 1: Navigate to dashboard
-        await adminDashboard.goto();
+    test('should validate main nav, admin sub-nav tabs, and tab navigation', async ({ adminNavigation, adminPage }) => {
+        test.setTimeout(120000);
+        // Start on Dashboard so admin sub-nav is visible
+        await adminPage.goto('/team/19126/reporting/145164');
+        await adminPage.waitForLoadState('domcontentloaded');
 
-        // STEP 2: Validate main navigation links are visible
+        // STEP 1: Validate main navigation tabs are visible
         await adminNavigation.expectMainNavVisible();
 
-        // STEP 3: Validate admin sub-navigation tabs are visible
+        // STEP 2: Validate admin sub-navigation bar is visible
         await adminNavigation.expectAdminSubNavVisible();
-    });
 
-    test('should navigate to each admin sub-nav tab', async ({ adminDashboard, adminNavigation }) => {
-        // STEP 1: Start on dashboard so sub-nav is present
-        await adminDashboard.goto();
+        // STEP 3: Navigate to Dashboard tab and verify URL
+        await adminNavigation.navigateToDashboard();
+        expect(adminPage.url()).toContain('/reporting/');
 
-        // STEP 2: Navigate to Skills Assessments Data tab
+        // STEP 4: Navigate to Skills Assessments Data tab and verify URL
         await adminNavigation.navigateToSkillsAssessmentsData();
-        expect(adminNavigation.page.url()).toContain('/skills-assessment/');
+        expect(adminPage.url()).toContain('/skills-assessment/');
 
-        // STEP 3: Navigate to Due Dates tab
+        // STEP 5: Navigate to Due Dates tab and verify URL
         await adminNavigation.navigateToDueDates();
-        expect(adminNavigation.page.url()).toContain('/due-date/');
+        expect(adminPage.url()).toContain('/due-date/');
 
-        // STEP 4: Navigate to Add Users tab
+        // STEP 6: Navigate to Add Users tab and verify URL
         await adminNavigation.navigateToAddUsers();
-        expect(adminNavigation.page.url()).toContain('/invitations');
+        expect(adminPage.url()).toContain('/invitations');
 
-        // STEP 5: Navigate to Manage Learning Paths tab
+        // STEP 7: Navigate to Manage Learning Paths tab and verify URL
         await adminNavigation.navigateToManageLearningPaths();
-        expect(adminNavigation.page.url()).toContain('/team/learning-path');
-    });
+        expect(adminPage.url()).toContain('/team/learning-path');
 
-    test('should navigate via main nav links', async ({ adminDashboard, adminNavigation }) => {
-        // STEP 1: Start on dashboard
-        await adminDashboard.goto();
+        // STEP 8: Return to Dashboard and validate main nav links still visible
+        await adminPage.goto('/team/19126/reporting/145164');
+        await adminPage.waitForLoadState('domcontentloaded');
+        await adminNavigation.expectMainNavVisible();
 
-        // STEP 2: Navigate to Courses via main nav
+        // STEP 9: Navigate to My Classroom via main nav and verify URL
+        await adminNavigation.navigateToMyClassroom();
+        expect(adminPage.url()).toContain('my_classroom');
+
+        // STEP 10: Navigate to Courses via main nav and verify URL
+        await adminPage.goto('/team/19126/reporting/145164');
+        await adminPage.waitForLoadState('domcontentloaded');
         await adminNavigation.navigateToCourses();
-        expect(adminNavigation.page.url()).toContain('/topics');
+        expect(adminPage.url()).toContain('/topics');
 
-        // STEP 3: Navigate to Learning Paths via main nav
+        // STEP 11: Navigate to Learning Paths via main nav and verify URL
+        await adminPage.goto('/team/19126/reporting/145164');
+        await adminPage.waitForLoadState('domcontentloaded');
         await adminNavigation.navigateToLearningPaths();
-        expect(adminNavigation.page.url()).toContain('/learningpaths');
+        expect(adminPage.url()).toContain('/learningpaths');
 
-        // STEP 4: Navigate to Skills Assessments via main nav
+        // STEP 12: Navigate to Skills Assessments via main nav and verify URL
+        await adminPage.goto('/team/19126/reporting/145164');
+        await adminPage.waitForLoadState('domcontentloaded');
         await adminNavigation.navigateToSkillsAssessments();
-        expect(adminNavigation.page.url()).toContain('/skillsassessment');
+        expect(adminPage.url()).toContain('/skillsassessment');
 
-        // STEP 5: Navigate to Leaderboard via main nav
+        // STEP 13: Navigate to Leaderboard via main nav and verify URL
+        await adminPage.goto('/team/19126/reporting/145164');
+        await adminPage.waitForLoadState('domcontentloaded');
         await adminNavigation.navigateToLeaderboard();
-        expect(adminNavigation.page.url()).toContain('leaderboard');
+        expect(adminPage.url()).toContain('leaderboard');
     });
 
 });

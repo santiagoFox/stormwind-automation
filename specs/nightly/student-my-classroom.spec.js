@@ -39,5 +39,22 @@ test.describe('Student - My Classroom Page', () => {
 
         // 9. Verify footer with all links
         await studentMyClassroom.expectAllFooterLinksVisible();
+
+        // 10. Switch to Learning Paths tab and verify URL stays on My Classroom
+        await studentMyClassroom.clickLearningPathsTab();
+        expect(await studentMyClassroom.isOnCorrectURL()).toBeTruthy();
+
+        // 11. Switch to Skills Assessment tab
+        await studentMyClassroom.clickSkillsAssessmentTab();
+        expect(await studentMyClassroom.isOnCorrectURL()).toBeTruthy();
+
+        // 12. Switch back to Courses tab
+        await studentMyClassroom.clickCoursesTab();
+        expect(await studentMyClassroom.isOnCorrectURL()).toBeTruthy();
+
+        // 13. Click Completed filter and verify page stays on My Classroom
+        await studentMyClassroom.clickCompletedFilter();
+        expect(await studentMyClassroom.isOnCorrectURL()).toBeTruthy();
+        await studentMyClassroom.allFilterPill.click();
     });
 });

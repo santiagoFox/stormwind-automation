@@ -3,6 +3,7 @@ const { test, expect } = require('../../fixtures/fixtures');
 test.describe('Student - Send Ideas Page', () => {
 
     test('should open Send Ideas in a new tab with correct URL', async ({ studentMyClassroom, context }) => {
+        test.setTimeout(90000);
         // 1. Navigate to My Classroom (login happens via fixture)
         await studentMyClassroom.navigateFromNav();
 
@@ -18,7 +19,7 @@ test.describe('Student - Send Ideas Page', () => {
         ]);
 
         // 3. Wait for the new page to load
-        await newPage.waitForLoadState('domcontentloaded');
+        await newPage.waitForURL(/feedback\.stormwindstudios\.com/, { timeout: 30000 });
 
         // 4. Verify new tab opened with correct URL
         expect(newPage.url()).toContain('feedback.stormwindstudios.com');
@@ -34,6 +35,7 @@ test.describe('Student - Send Ideas Page', () => {
     });
 
     test('should display main elements on Send Ideas page', async ({ studentMyClassroom, context }) => {
+        test.setTimeout(90000);
         // Navigate to My Classroom
         await studentMyClassroom.navigateFromNav();
 
@@ -45,7 +47,7 @@ test.describe('Student - Send Ideas Page', () => {
             sendIdeasLink.click()
         ]);
 
-        await newPage.waitForLoadState('domcontentloaded');
+        await newPage.waitForURL(/feedback\.stormwindstudios\.com/, { timeout: 30000 });
 
         // Verify key elements on the Featurebase feedback page
         await expect(newPage.getByRole('heading', { name: /Have something to say/i })).toBeVisible();

@@ -42,6 +42,19 @@ test.describe('Admin - Due Dates Page', () => {
 
         // 8. Validate footer links
         await adminDueDates.expectAllFooterLinksVisible();
+
+        // 9. Search for a course in the summary section search input
+        await adminDueDates.searchCourse('PL-300');
+        await expect(adminDueDates.searchCourseInput).toHaveValue('PL-300');
+
+        // 10. Search for a course or student in the All Due Dates section
+        await adminDueDates.searchCourseOrStudent('Santiago');
+        await expect(adminDueDates.searchCourseOrStudentInput).toHaveValue('Santiago');
+
+        // 11. Click Assign a Due Date button — verifies the button is clickable and page stays on due dates
+        await adminDueDates.clickAssignDueDate();
+        const isStillCorrect = await adminDueDates.isOnCorrectURL();
+        expect(isStillCorrect).toBeTruthy();
     });
 
 });

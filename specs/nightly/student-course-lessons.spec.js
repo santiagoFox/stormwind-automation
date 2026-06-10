@@ -1,7 +1,7 @@
 const { test, expect } = require('../../fixtures/fixtures');
 
 /**
- * Student - Course Lessons Page Tests (Nightly)
+ * Student - Course Lessons Page Tests
  * Tests the course player/lessons page after clicking Resume
  * Flow: Course Details -> Resume -> Lessons Page
  * URL: /replay/{courseId}/course-overview

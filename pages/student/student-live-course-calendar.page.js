@@ -16,8 +16,8 @@ class StudentLiveCourseCalendarPage extends BasePage {
 
         // Calendar controls
         this.todayButton = page.getByRole('button', { name: 'Today' });
-        this.previousButton = page.locator('button').filter({ has: page.locator('svg, [class*="chevron-left"], [class*="arrow"]') }).first();
-        this.nextButton = page.locator('button').filter({ has: page.locator('svg, [class*="chevron-right"], [class*="arrow"]') }).last();
+        this.previousButton = page.getByRole('button', { name: 'Previous month' });
+        this.nextButton = page.getByRole('button', { name: 'Next month' });
 
         // Calendar header
         this.monthYearHeading = page.locator('text=/\\w+ \\d{4}/'); // Matches "December 2025"

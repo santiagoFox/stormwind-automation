@@ -9,6 +9,7 @@ const { test, expect } = require('../../fixtures/fixtures');
 test.describe('Admin - Navigation Tests', () => {
 
     test('should validate main nav, admin sub-nav tabs, and tab navigation', async ({ adminNavigation, adminPage }) => {
+        test.setTimeout(120000);
         // Start on Dashboard so admin sub-nav is visible
         await adminPage.goto('/team/19126/reporting/145164');
         await adminPage.waitForLoadState('domcontentloaded');

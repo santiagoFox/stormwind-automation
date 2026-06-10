@@ -19,6 +19,9 @@ test.describe('Admin - Assign Course Modal', () => {
         // 3. Validate navigation is visible
         await adminCourseDetails.expectNavigationVisible();
 
+        // 3a. Validate Overview section is visible
+        await adminCourseDetails.expectOverviewSectionVisible();
+
         // 4. Validate Assign Course button is visible (manager-specific)
         await adminCourseDetails.expectAssignCourseBtnVisible();
 
@@ -29,23 +32,6 @@ test.describe('Admin - Assign Course Modal', () => {
         const modal = adminCourseDetails.assignCourseModal;
 
         // 6. Validate modal is visible
-        await modal.expectModalVisible();
-
-        // ========== PRE-SEED: ensure Santiago Manager has an existing PL-300 due date ==========
-        // The "already have a due date" warning only fires when the selected student already
-        // has an assignment. Test data can be wiped, so seed it ourselves with a future date,
-        // then reload the page to reset modal state before running the actual assertions.
-        const seedDate = new Date();
-        seedDate.setDate(seedDate.getDate() + 7);
-        const seedDateStr = seedDate.toISOString().split('T')[0];
-
-        await modal.searchStudents('santi');
-        await modal.selectStudent('Santiago Manager');
-        await modal.setStudentDueDate('Santiago Manager', seedDateStr);
-        await modal.clickAssignCourse();
-
-        await modal.closeModal();
-        await adminCourseDetails.clickAssignCourse();
         await modal.expectModalVisible();
 
         // ========== TEST DUE DATE WARNING ==========

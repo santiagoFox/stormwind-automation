@@ -95,31 +95,31 @@ test.describe('Student - Courses Page', () => {
         // 24. Validate modal title matches "Palo Alto Firewall Administration"
         await studentCoursesList.expectCourseModalTitle('Palo Alto Firewall Administration');
 
-        // 25. Validate level is visible (Intermediate)
+        // 26. Validate level is visible (Intermediate)
         await studentCoursesList.expectCourseModalLevelVisible();
 
-        // 26. Validate duration is visible (less than 1 hour)
+        // 27. Validate duration is visible (less than 1 hour)
         await studentCoursesList.expectCourseModalDurationVisible();
 
-        // 27. Validate Overview heading is visible
+        // 28. Validate Overview heading is visible
         await studentCoursesList.expectCourseModalOverviewHeadingVisible();
 
-        // 28. Validate "LEARN MORE" link is visible
+        // 29. Validate "LEARN MORE" link is visible
         await studentCoursesList.expectCourseModalLearnMoreLinkVisible();
 
-        // 29. Validate "+ ADD TO CLASSROOM" button is visible
+        // 30. Validate "+ ADD TO CLASSROOM" button is visible
         await studentCoursesList.expectCourseModalAddToClassroomBtnVisible();
 
-        // 30. Validate close button (X) is visible
+        // 31. Validate close button (X) is visible
         await studentCoursesList.expectCourseModalCloseButtonVisible();
 
-        // 31. Close the modal
+        // 32. Close the modal
         await studentCoursesList.closeCourseModal();
 
-        // 32. Validate navigation bar is visible
+        // 33. Validate navigation bar is visible
         await studentCoursesList.expectNavigationVisible();
 
-        // 33. Validate footer links
+        // 34. Validate footer links
         await studentCoursesList.expectAllFooterLinksVisible();
     });
 

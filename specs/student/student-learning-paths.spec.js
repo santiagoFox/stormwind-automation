@@ -34,6 +34,12 @@ test.describe('Student - Learning Paths Page', () => {
         // 7. Validate learning path cards are displayed
         await studentLearningPaths.expectLearningPathCardsVisible();
 
+        // 7a. Apply Path Size filter (index 1 = first non-default option) and reset
+        await studentLearningPaths.selectPathSizeOption(1);
+        await studentLearningPaths.page.waitForTimeout(300);
+        await studentLearningPaths.resetPathSizeFilter();
+        await studentLearningPaths.page.waitForTimeout(300);
+
         // 8. Search for "Learning Path Santiago Test 1"
         await studentLearningPaths.searchLearningPath('Learning Path Santiago Test 1');
 

@@ -42,6 +42,10 @@ test.describe('Admin - Skills Assessments Data Page', () => {
 
         // 9. Validate footer links
         await adminSkillsAssessmentsData.expectAllFooterLinksVisible();
+
+        // 10. Search for an assessment by name and verify input has the value
+        await adminSkillsAssessmentsData.searchAssessment('Azure');
+        await expect(adminSkillsAssessmentsData.searchInput).toHaveValue('Azure');
     });
 
 });

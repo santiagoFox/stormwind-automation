@@ -33,7 +33,7 @@ class AdminCourseDetailsPage extends BasePage {
         this.progressIndicator = page.getByText(/\d+%\s*complete/i);
 
         // Overview section
-        this.overviewHeading = page.getByRole('heading', { name: 'Overview' });
+        this.overviewHeading = page.getByRole('heading', { name: 'Overview', exact: true });
     }
 
     /**

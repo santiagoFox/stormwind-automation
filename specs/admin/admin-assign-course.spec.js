@@ -19,6 +19,9 @@ test.describe('Admin - Assign Course Modal', () => {
         // 3. Validate navigation is visible
         await adminCourseDetails.expectNavigationVisible();
 
+        // 3a. Validate Overview section is visible
+        await adminCourseDetails.expectOverviewSectionVisible();
+
         // 4. Validate Assign Course button is visible (manager-specific)
         await adminCourseDetails.expectAssignCourseBtnVisible();
 

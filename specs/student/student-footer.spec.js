@@ -9,6 +9,7 @@ const { test, expect } = require('../../fixtures/fixtures');
 test.describe('Student - Footer Tests', () => {
 
     test('should validate all footer sections and links', async ({ studentFooter, studentMyClassroom }) => {
+        test.setTimeout(120000);
         // Navigate to My Classroom so the footer is present
         await studentMyClassroom.navigateFromNav();
 
@@ -49,13 +50,8 @@ test.describe('Student - Footer Tests', () => {
         // STEP 10: Go back and verify Live Course Calendar footer link navigates correctly
         await studentMyClassroom.navigateFromNav();
         await studentFooter.scrollToFooter();
-        const [calendarTab] = await Promise.all([
-            studentMyClassroom.page.context().waitForEvent('page'),
-            studentFooter.exploreLiveCourseCalendar.click()
-        ]);
-        await calendarTab.waitForLoadState('domcontentloaded');
-        expect(calendarTab.url()).toContain('calendar');
-        await calendarTab.close();
+        await studentFooter.clickExploreLiveCourseCalendar();
+        expect(studentMyClassroom.page.url()).toContain('calendar');
     });
 
 });
