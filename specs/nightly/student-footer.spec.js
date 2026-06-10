@@ -54,4 +54,42 @@ test.describe('Student - Footer Tests', () => {
         expect(studentMyClassroom.page.url()).toContain('calendar');
     });
 
+    test('should navigate to Webinars from footer Explore section', async ({ studentFooter, studentMyClassroom }) => {
+        test.setTimeout(60000);
+        await studentMyClassroom.navigateFromNav();
+        await studentFooter.scrollToFooter();
+        await studentFooter.clickExploreWebinars();
+        expect(studentMyClassroom.page.url()).toContain('/webinar');
+    });
+
+    test('should open Terms of Use in a new tab from footer About section', async ({ studentFooter, studentMyClassroom, context }) => {
+        test.setTimeout(60000);
+        await studentMyClassroom.navigateFromNav();
+        await studentFooter.scrollToFooter();
+
+        const [newPage] = await Promise.all([
+            context.waitForEvent('page'),
+            studentFooter.aboutTermsOfUse.click()
+        ]);
+
+        await newPage.waitForLoadState('domcontentloaded');
+        expect(newPage.url()).not.toContain('my_classroom');
+        await newPage.close();
+    });
+
+    test('should open Privacy Policy in a new tab from footer About section', async ({ studentFooter, studentMyClassroom, context }) => {
+        test.setTimeout(60000);
+        await studentMyClassroom.navigateFromNav();
+        await studentFooter.scrollToFooter();
+
+        const [newPage] = await Promise.all([
+            context.waitForEvent('page'),
+            studentFooter.aboutPrivacyPolicy.click()
+        ]);
+
+        await newPage.waitForLoadState('domcontentloaded');
+        expect(newPage.url()).not.toContain('my_classroom');
+        await newPage.close();
+    });
+
 });

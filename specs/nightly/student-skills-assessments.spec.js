@@ -66,4 +66,19 @@ test.describe('Student - Skills Assessments Page', () => {
         await studentSkillsAssessments.expectAllFooterLinksVisible();
     });
 
+    test('should clear search and return all assessment cards', async ({ studentSkillsAssessments }) => {
+        await studentSkillsAssessments.goto();
+
+        // STEP 1: Search to filter results
+        await studentSkillsAssessments.searchAssessment('Computer Hardware Support');
+        await expect(studentSkillsAssessments.searchInput).toHaveValue('Computer Hardware Support');
+
+        // STEP 2: Clear search
+        await studentSkillsAssessments.clearSearch();
+        await studentSkillsAssessments.page.waitForTimeout(500);
+
+        // STEP 3: Verify all assessment cards are visible again
+        await studentSkillsAssessments.expectAssessmentCardsVisible();
+    });
+
 });

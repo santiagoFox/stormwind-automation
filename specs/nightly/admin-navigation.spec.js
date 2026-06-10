@@ -72,6 +72,12 @@ test.describe('Admin - Navigation Tests', () => {
         await adminPage.waitForLoadState('domcontentloaded');
         await adminNavigation.navigateToLeaderboard();
         expect(adminPage.url()).toContain('leaderboard');
+
+        // STEP 14: Navigate to Admin via main nav and verify URL contains team path
+        await adminPage.goto('/team/19126/reporting/145164');
+        await adminPage.waitForLoadState('domcontentloaded');
+        await adminNavigation.navigateToAdmin();
+        expect(adminPage.url()).toContain('/team/');
     });
 
 });
