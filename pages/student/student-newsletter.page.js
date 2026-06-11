@@ -14,12 +14,12 @@ class StudentNewsletterPage extends BasePage {
 
     /**
      * Click newsletter link and wait for new tab to open
+     * @param {BrowserContext} context - Playwright browser context
      * @returns {Promise<Page>} The new page/tab that opens
      */
-    async clickNewsletterAndGetNewTab() {
-        // Use popup event for target="_blank" links
+    async clickNewsletterAndGetNewTab(context) {
         const [newPage] = await Promise.all([
-            this.page.waitForEvent('popup'),
+            context.waitForEvent('page'),
             this.navigation.sidebarNewsletter.click()
         ]);
 

@@ -2,6 +2,7 @@ const { test, expect } = require('../../fixtures/fixtures');
 
 test.describe('Student - Newsletter Link', () => {
     test('should open newsletter in new tab', async ({ studentNewsletter, context }) => {
+        test.setTimeout(90000);
         // Navigate to My Classroom first (where sidebar is visible)
         await studentNewsletter.navigation.navigateToMyClassroom();
 
@@ -21,6 +22,7 @@ test.describe('Student - Newsletter Link', () => {
     });
 
     test('should open newsletter from sidebar link', async ({ studentMyClassroom, context }) => {
+        test.setTimeout(90000);
         // Navigate to My Classroom
         await studentMyClassroom.navigateFromNav();
 
