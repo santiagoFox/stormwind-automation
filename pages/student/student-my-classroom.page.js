@@ -32,8 +32,11 @@ class StudentMyClassroomPage extends BasePage {
         this.inProgressFilterPill = page.getByRole('button', { name: /In progress/i }).first();
         this.completedFilterPill = page.getByRole('button', { name: /^Completed/i }).first();
 
-        // Overdue badge (visible on overdue course cards)
-        this.overdueBadge = page.locator('.deadline-badge--overdue').first();
+        // Overdue badge (visible on overdue course cards). The badge only renders
+        // when the account actually has an overdue course, so tests must guard on
+        // overdueBadgeCount() before asserting visibility.
+        this.overdueBadges = page.locator('.deadline-badge--overdue');
+        this.overdueBadge = this.overdueBadges.first();
 
         // Course content
         this.coursesList = page.locator('.courses-list');
@@ -109,6 +112,10 @@ class StudentMyClassroomPage extends BasePage {
 
     async clickCompletedFilter() {
         await this.completedFilterPill.click();
+    }
+
+    async overdueBadgeCount() {
+        return await this.overdueBadges.count();
     }
 
     async expectOverdueBadgeVisible() {
