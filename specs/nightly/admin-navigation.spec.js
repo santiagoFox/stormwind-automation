@@ -59,7 +59,7 @@ test.describe('Admin - Navigation Tests', () => {
         await adminPage.goto('/team/19126/reporting/145164');
         await adminPage.waitForLoadState('domcontentloaded');
         await adminNavigation.navigateToLearningPaths();
-        expect(adminPage.url()).toContain('/team/learning-path');
+        expect(adminPage.url()).toContain('/learningpaths');
 
         // STEP 12: Navigate to Skills Assessments via main nav and verify URL
         await adminPage.goto('/team/19126/reporting/145164');
