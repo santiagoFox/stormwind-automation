@@ -52,7 +52,7 @@ test.describe('Student - Skills Assessments Page', () => {
         await studentSkillsAssessments.expectModalLevelVisible();
         await studentSkillsAssessments.expectModalDurationVisible();
         await studentSkillsAssessments.expectModalOverviewVisible();
-        await studentSkillsAssessments.expectLearnMoreLinkVisible();
+        await studentSkillsAssessments.expectGoToAssessmentLinkVisible();
         await studentSkillsAssessments.expectAddToClassroomBtnVisible();
         await studentSkillsAssessments.expectModalCloseButtonVisible();
 

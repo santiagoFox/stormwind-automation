@@ -65,7 +65,8 @@ class StudentCoursesListPage extends BasePage {
         this.courseModalLevel = page.locator('.course-preview-modal.show').getByText(/Intermediate|Beginner|Advanced/);
         this.courseModalDuration = page.locator('.course-preview-modal.show').getByText('less than 1 hour');
         this.courseModalOverviewHeading = page.locator('.course-preview-modal.show').getByText('Overview', { exact: true });
-        this.courseModalLearnMoreLink = page.locator('.course-preview-modal.show').getByRole('link', { name: 'LEARN MORE' });
+        // The preview modal's CTA reads "Go to Course" for courses and "Go to Assessment" for assessment items (both can appear in a course list).
+        this.courseModalGoToLink = page.locator('.course-preview-modal.show').getByRole('link', { name: /go to (course|assessment)/i });
         this.courseModalAddToClassroomBtn = page.locator('.course-preview-modal.show').getByRole('button', { name: /ADD TO CLASSROOM/i });
         this.courseModalCloseButton = page.locator('.course-preview-modal.show button.close, .course-preview-modal.show [aria-label="Close"]');
     }
@@ -369,10 +370,10 @@ class StudentCoursesListPage extends BasePage {
     }
 
     /**
-     * Assert course modal LEARN MORE link is visible
+     * Assert course modal "Go to Course" / "Go to Assessment" link is visible
      */
-    async expectCourseModalLearnMoreLinkVisible() {
-        await this.expectVisible(this.courseModalLearnMoreLink);
+    async expectCourseModalGoToLinkVisible() {
+        await this.expectVisible(this.courseModalGoToLink);
     }
 
     /**
@@ -400,7 +401,7 @@ class StudentCoursesListPage extends BasePage {
         await this.expectCourseModalLevelVisible();
         await this.expectCourseModalDurationVisible();
         await this.expectCourseModalOverviewHeadingVisible();
-        await this.expectCourseModalLearnMoreLinkVisible();
+        await this.expectCourseModalGoToLinkVisible();
         await this.expectCourseModalAddToClassroomBtnVisible();
         await this.expectCourseModalCloseButtonVisible();
     }
