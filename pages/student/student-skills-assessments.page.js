@@ -35,7 +35,7 @@ class StudentSkillsAssessmentsPage extends BasePage {
         this.modalLevel = page.locator('.modal.show').getByText(/beginner|intermediate|advanced/i).first();
         this.modalDuration = page.locator('.modal.show').getByText(/less than|hour|minute/i).first();
         this.modalOverviewHeading = page.locator('.modal.show h5:has-text("Overview"), .modal.show h4:has-text("Overview")');
-        this.modalLearnMoreLink = page.locator('.modal.show').getByRole('link', { name: /learn more/i });
+        this.modalGoToAssessmentLink = page.locator('.modal.show').getByRole('link', { name: /go to assessment/i });
         this.modalAddToClassroomBtn = page.locator('.modal.show').getByRole('button', { name: /add to classroom/i });
         this.modalCloseButton = page.locator('.modal.show [data-dismiss="modal"], .modal.show button[aria-label="Close"]').first();
     }
@@ -274,10 +274,10 @@ class StudentSkillsAssessmentsPage extends BasePage {
     }
 
     /**
-     * Assert LEARN MORE link is visible
+     * Assert GO TO ASSESSMENT link is visible
      */
-    async expectLearnMoreLinkVisible() {
-        await this.expectVisible(this.modalLearnMoreLink);
+    async expectGoToAssessmentLinkVisible() {
+        await this.expectVisible(this.modalGoToAssessmentLink);
     }
 
     /**
@@ -304,7 +304,7 @@ class StudentSkillsAssessmentsPage extends BasePage {
         await this.expectModalLevelVisible();
         await this.expectModalDurationVisible();
         await this.expectModalOverviewVisible();
-        await this.expectLearnMoreLinkVisible();
+        await this.expectGoToAssessmentLinkVisible();
         await this.expectAddToClassroomBtnVisible();
         await this.expectModalCloseButtonVisible();
     }

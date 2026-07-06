@@ -104,8 +104,8 @@ test.describe('Student - Courses Page', () => {
         // 28. Validate Overview heading is visible
         await studentCoursesList.expectCourseModalOverviewHeadingVisible();
 
-        // 29. Validate "LEARN MORE" link is visible
-        await studentCoursesList.expectCourseModalLearnMoreLinkVisible();
+        // 29. Validate "Go to Course"/"Go to Assessment" link is visible
+        await studentCoursesList.expectCourseModalGoToLinkVisible();
 
         // 30. Validate "+ ADD TO CLASSROOM" button is visible
         await studentCoursesList.expectCourseModalAddToClassroomBtnVisible();
