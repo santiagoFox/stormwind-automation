@@ -40,11 +40,14 @@ class StudentLeaderboardPage extends BasePage {
         // Specific table headers
         this.rankHeader = page.getByRole('columnheader', { name: /rank/i });
         this.studentNameHeader = page.getByRole('columnheader', { name: /student name/i });
-        this.totalCourseTimeHeader = page.getByRole('columnheader', { name: /total course time/i });
-        this.timeSpentRecordedHeader = page.getByRole('columnheader', { name: /time spent.*recorded/i });
-        this.timeSpentLiveHeader = page.getByRole('columnheader', { name: /time spent.*live/i });
-        this.coursesCompletedHeader = page.getByRole('columnheader', { name: /courses completed/i });
-        this.coursesRegisteredHeader = page.getByRole('columnheader', { name: /courses registered/i });
+        // Redesigned leaderboard columns: "Total Course Time" -> "Total Time",
+        // "Time Spent (Recorded/Live)" -> "Recorded Time"/"Live Time", and the
+        // separate "Courses Completed"/"Courses Registered" columns merged into
+        // a single "Completed/Registered" column.
+        this.totalTimeHeader = page.getByRole('columnheader', { name: /total time/i });
+        this.recordedTimeHeader = page.getByRole('columnheader', { name: /recorded time/i });
+        this.liveTimeHeader = page.getByRole('columnheader', { name: /live time/i });
+        this.completedRegisteredHeader = page.getByRole('columnheader', { name: /completed\s*\/\s*registered/i });
         this.topCourseHeader = page.getByRole('columnheader', { name: /top course/i });
 
         // Table rows
@@ -212,11 +215,10 @@ class StudentLeaderboardPage extends BasePage {
     async expectAllTableHeadersVisible() {
         await this.expectVisible(this.rankHeader);
         await this.expectVisible(this.studentNameHeader);
-        await this.expectVisible(this.totalCourseTimeHeader);
-        await this.expectVisible(this.timeSpentRecordedHeader);
-        await this.expectVisible(this.timeSpentLiveHeader);
-        await this.expectVisible(this.coursesCompletedHeader);
-        await this.expectVisible(this.coursesRegisteredHeader);
+        await this.expectVisible(this.totalTimeHeader);
+        await this.expectVisible(this.recordedTimeHeader);
+        await this.expectVisible(this.liveTimeHeader);
+        await this.expectVisible(this.completedRegisteredHeader);
         await this.expectVisible(this.topCourseHeader);
     }
 
