@@ -65,6 +65,11 @@ class LoginPage extends BasePage {
         await this.expectUrl(/\/my_classroom\//);
     }
 
+    // REUSE_METHOD: expectRedirectedToTeamReporting
+    async expectRedirectedToTeamReporting() {
+        await this.expectUrl(/\/team\/\d+\/reporting/);
+    }
+
     async expectEmailFieldHidden() {
         await this.expectHidden(this.emailInput);
     }
