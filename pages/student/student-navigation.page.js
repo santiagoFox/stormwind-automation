@@ -21,6 +21,14 @@ class StudentNavigationPage extends BasePage {
         this.profileIcon = page.locator('.profile-icon');
         this.userMenu = page.locator('.user-menu');
 
+        // Profile dropdown menu (opened via the "Toggle Dropdown" control)
+        this.profileMenuToggle = page.getByRole('button', { name: /toggle dropdown/i }).first();
+        this.menuMyProfile = page.getByRole('link', { name: /^\s*My Profile\s*$/i }).first();
+        this.menuSecurity = page.getByRole('link', { name: /^\s*Security\s*$/i }).first();
+        this.menuActivity = page.getByRole('link', { name: /^\s*Activity\s*$/i }).first();
+        this.menuMyGoals = page.getByRole('link', { name: /^\s*My Goals\s*$/i }).first();
+        this.menuLogout = page.getByRole('link', { name: /^\s*Log ?out\s*$/i }).first();
+
         // Sidebar links (right side)
         this.sidebarWebinars = page.getByRole('link', { name: ' Webinars' }).first();
         this.sidebarNewsletter = page.getByRole('link', { name: ' Newsletter' }).first();
@@ -99,6 +107,19 @@ class StudentNavigationPage extends BasePage {
     // Assertion - Admin tab must be absent for the student role
     async expectAdminLinkHidden() {
         await this.expectHidden(this.adminLink);
+    }
+
+    // Profile dropdown menu
+    async openProfileMenu() {
+        await this.profileMenuToggle.click();
+    }
+
+    async expectProfileMenuItemsVisible() {
+        await this.expectVisible(this.menuMyProfile);
+        await this.expectVisible(this.menuSecurity);
+        await this.expectVisible(this.menuActivity);
+        await this.expectVisible(this.menuMyGoals);
+        await this.expectVisible(this.menuLogout);
     }
 
     // Assertions - Sidebar
