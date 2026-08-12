@@ -33,4 +33,8 @@ test.describe('Student - Navigation Tests', () => {
     test('should display sidebar links', async ({ studentNavigation }) => {
         await studentNavigation.expectSidebarLinksVisible();
     });
+
+    test('should NOT display the Admin tab (student role)', async ({ studentNavigation }) => {
+        await studentNavigation.expectAdminLinkHidden();
+    });
 });

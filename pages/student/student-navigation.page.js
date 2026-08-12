@@ -14,6 +14,8 @@ class StudentNavigationPage extends BasePage {
         this.learningPathsLink = page.getByRole('link', { name: 'Learning Paths' }).first();
         this.skillsAssessmentsLink = page.getByRole('link', { name: /skill.?assessments/i }).first();
         this.leaderboardLink = page.getByRole('link', { name: 'Leaderboard' });
+        // Admin tab: manager/admin-only. Should NOT be present for the student role.
+        this.adminLink = page.getByRole('link', { name: 'Admin', exact: true });
 
         // User profile/account
         this.profileIcon = page.locator('.profile-icon');
@@ -92,6 +94,11 @@ class StudentNavigationPage extends BasePage {
         await this.expectVisible(this.learningPathsLink);
         await this.expectVisible(this.skillsAssessmentsLink);
         await this.expectVisible(this.leaderboardLink);
+    }
+
+    // Assertion - Admin tab must be absent for the student role
+    async expectAdminLinkHidden() {
+        await this.expectHidden(this.adminLink);
     }
 
     // Assertions - Sidebar
