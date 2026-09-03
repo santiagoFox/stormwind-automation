@@ -111,6 +111,7 @@ class StudentCourseDetailsPage extends BasePage {
     // REUSE_METHOD: clickRemoveFromClassroom
     async clickRemoveFromClassroom() {
         await this.removeFromClassroomBtn.click();
+        await this.page.waitForLoadState('networkidle');
         await this.page.reload();
         await this.page.waitForLoadState('domcontentloaded');
     }
